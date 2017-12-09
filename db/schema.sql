@@ -10,7 +10,7 @@ name VARCHAR(255) not null,
 email VARCHAR(255) not null,
 password VARCHAR(255) not null,
 token VARCHAR(255), -- put token in session storage in browser --
-current_room VARCHAR(255)
+current_room VARCHAR(255),
 primary key(id)
 );
 
