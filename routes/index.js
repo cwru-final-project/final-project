@@ -1,5 +1,6 @@
 const path = require("path");
 const router = require("express").Router();
+const userConstructor = require("../controllers/userController")
 /*const articleController = require("../controllers/articleController");
 
 router.route("/api")
