@@ -8,6 +8,14 @@ const user =
 		{
 			cb(result)
 		});
+	},
+
+	login: function(value, cb)
+	{
+		orm.findOne("users", "email", value, function(result)
+		{
+			cb(result)
+		})
 	}
 }
 

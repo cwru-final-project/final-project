@@ -9,6 +9,15 @@ const orm =
 			if(err){throw err;}
 			cb(result);
 		})
+	},
+
+	findOne: function(table, field, value, cb)
+	{
+		connection.query(`SELECT * FROM ${table} WHERE ? = ?`, [field, value], function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
 	}
 }
 
