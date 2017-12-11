@@ -10,13 +10,13 @@ const styles =
 
 	headerText:
 	{
-		"color":"purple",
+		"color":"black",
 		"fontSize":"50px"
 	},
 
 	infoText:
 	{
-		"color":"purple",
+		"color":"black",
 		"fontSize":"30px"
 	}
 }

@@ -4,7 +4,7 @@ const styles =
 {
 	infoText:
 	{
-		"color":"purple",
+		"color":"black",
 		"fontSize":"30px",
 		"textAlign":"center"
 	}
@@ -12,6 +12,22 @@ const styles =
 
 class Login extends Component 
 {
+	state = 
+	{
+		"loginEmail": "",
+		"loginPassword": "",
+		"registerName": "",
+		"registerEmail": "",
+		"registerPassword": "",
+		"registerAge": "",
+	}
+
+	updateField = event =>
+	{
+		this.setState({[event.target.id]:event.target.value})
+		console.log(this.state)
+	}
+
 	render()
 	{
 		return (
@@ -23,12 +39,12 @@ class Login extends Component
 						<p style={styles.infoText}>Login</p>
 						<form>
 							<div className="form-group">
-								<label htmlFor="login-email">Email address</label>
-								<input type="email" className="form-control" id="login-email" aria-describedby="emailHelp" placeholder="Enter email" required/>
+								<label htmlFor="loginEmail">Email address</label>
+								<input type="email" className="form-control" id="loginEmail" aria-describedby="emailHelp" value={this.state.loginEmail} onChange={this.updateField} required></input>
 							</div>
 							<div className="form-group">
-								<label htmlFor="login-password">Password</label>
-								<input type="password" className="form-control" id="login-password" placeholder="Enter Password" required/>
+								<label htmlFor="loginPassword">Password</label>
+								<input type="password" className="form-control" id="loginPassword" value={this.state.loginPassword} onChange={this.updateField} required/>
 							</div>
 
 							<button type="submit" className="btn btn-primary">Login</button>
@@ -38,20 +54,20 @@ class Login extends Component
 						<p style={styles.infoText}>Register</p>
 						<form>
 							<div className="form-group">
-								<label htmlFor="register-name">Name</label>
-								<input type="text" className="form-control" id="register-name" aria-describedby="emailHelp" placeholder="Enter name" required/>
+								<label htmlFor="registerName">Name</label>
+								<input type="text" className="form-control" id="registerName" aria-describedby="emailHelp" value={this.state.registerName} onChange={this.updateField} required/>
 							</div>
 							<div className="form-group">
-								<label htmlFor="register-email">Email address</label>
-								<input type="email" className="form-control" id="register-email" aria-describedby="emailHelp" placeholder="Enter email" required/>
+								<label htmlFor="registerEmail">Email address</label>
+								<input type="email" className="form-control" id="registerEmail" aria-describedby="emailHelp" value={this.state.registerEmail} onChange={this.updateField} required/>
 							</div>
 							<div className="form-group">
-								<label htmlFor="register-password">Password</label>
-								<input type="password" className="form-control" id="register-password" placeholder="Enter password" required/>
+								<label htmlFor="registerPassword">Password</label>
+								<input type="password" className="form-control" id="registerPassword" value={this.state.registerPassword} onChange={this.updateField} required/>
 							</div>
 							<div className="form-group">
-								<label htmlFor="register-age">Age</label>
-								<input type="number" className="form-control" id="register-age" placeholder="Enter age" required/>
+								<label htmlFor="registerAge">Age</label>
+								<input type="number" className="form-control" id="registerAge" value={this.state.registerAge} onChange={this.updateField} required/>
 							</div>
 
 							<button type="submit" className="btn btn-primary">Register</button>
