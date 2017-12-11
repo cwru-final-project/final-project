@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS game;
+DROP DATABASE IF EXISTS moodrooms;
 
 CREATE DATABASE moodrooms;
 
@@ -9,6 +9,7 @@ id INT(50) auto_increment not null,
 name VARCHAR(255) not null,
 email VARCHAR(255) not null,
 password VARCHAR(255) not null,
+age INT(50) not null,
 token VARCHAR(255), -- put token in session storage in browser --
 current_room VARCHAR(255),
 primary key(id)

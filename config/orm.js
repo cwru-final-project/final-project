@@ -22,7 +22,7 @@ const orm =
 
 	newUser: function(name, email, password, age, cb)
 	{
-		connection.query(`INSERT INTO users(name, email, password, age) VALUES (?, ?, ? , ?)`, [name, email, password, age], function(err, result)
+		connection.query(`INSERT INTO users (name, email, password, age) VALUES (?, ?, ?, ?)`, [name, email, password, age], function(err, result)
 		{
 			if(err){throw err}
 			cb(result)
