@@ -13,7 +13,11 @@ router.route("/api/:title")
 */
 // If no API routes are hit, send the React app
 
-router.route("login/:email").get(userController.login)
+router.route("/findall").get(userController.findAll)
+
+router.route(`/login/:email`).get(userController.login)
+
+router.route(`/register`).post(userController.newUser)
 
 router.use(function(req, res) 
 {

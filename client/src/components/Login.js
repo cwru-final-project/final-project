@@ -38,6 +38,21 @@ class Login extends Component
 
 	}
 
+	register = event =>
+	{
+		event.preventDefault()
+
+		const data = 
+		{
+			"name": this.state.registerName,
+			"email": this.state.registerEmail,
+			"password": this.state.registerPassword,
+			"age": this.state.registerAge
+		}
+
+		API.register(data)
+	}
+
 	render()
 	{
 		return (
@@ -47,8 +62,8 @@ class Login extends Component
 				<div className="row">
 					<div className="col-md-6">
 						<p style={styles.infoText}>Login</p>
-						<form>
-							<div className="form-group" action="/login" method="get">
+						<form action="/login" method="get">
+							<div className="form-group">
 								<label htmlFor="loginEmail">Email address</label>
 								<input type="email" className="form-control" id="loginEmail" aria-describedby="emailHelp" value={this.state.loginEmail} onChange={this.updateField} required></input>
 							</div>
@@ -62,7 +77,7 @@ class Login extends Component
 					</div>
 					<div className="col-md-6">
 						<p style={styles.infoText}>Register</p>
-						<form>
+						<form action="/register" method="post">
 							<div className="form-group">
 								<label htmlFor="registerName">Name</label>
 								<input type="text" className="form-control" id="registerName" aria-describedby="emailHelp" value={this.state.registerName} onChange={this.updateField} required/>
@@ -80,7 +95,7 @@ class Login extends Component
 								<input type="number" className="form-control" id="registerAge" value={this.state.registerAge} onChange={this.updateField} required/>
 							</div>
 
-							<button type="submit" className="btn btn-primary">Register</button>
+							<button type="submit" className="btn btn-primary" onClick={this.register}>Register</button>
 						</form>
 					</div>
 				</div>

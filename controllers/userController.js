@@ -1,7 +1,6 @@
 const express = require('express');
 const usersModel = require('../models/users-model.js');
 
-
 module.exports = 
 {
 	findAll: function(req, res)
@@ -14,8 +13,16 @@ module.exports =
 
 	login: function(req, res)
 	{
-		console.log("Hi there!")
 		usersModel.login(req.params.email, function(result)
+		{
+			console.log(result)
+		})
+	},
+
+	newUser: function(req, res)
+	{
+		console.log(req.body)
+		usersModel.newUser(req.body.name, req.body.email, req.body.password, req.body.age, function(result)
 		{
 			console.log(result)
 		})

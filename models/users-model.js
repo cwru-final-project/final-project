@@ -12,7 +12,15 @@ const user =
 
 	login: function(value, cb)
 	{
-		orm.findOne("users", "email", value, function(result)
+		orm.findOneByEmail("users", value, function(result)
+		{
+			cb(result)
+		})
+	},
+
+	newUser: function(name, email, password, age, cb)
+	{
+		orm.newUser(name, email, password, age, function(result)
 		{
 			cb(result)
 		})

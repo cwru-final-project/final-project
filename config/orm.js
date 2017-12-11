@@ -11,9 +11,18 @@ const orm =
 		})
 	},
 
-	findOne: function(table, field, value, cb)
+	findOneByEmail: function(table, value, cb)
 	{
-		connection.query(`SELECT * FROM ${table} WHERE ? = ?`, [field, value], function(err, result)
+		connection.query(`SELECT * FROM ${table} WHERE email = ?`, [value], function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
+	},
+
+	newUser: function(name, email, password, age, cb)
+	{
+		connection.query(`INSERT INTO users(name, email, password, age) VALUES (?, ?, ? , ?)`, [name, email, password, age], function(err, result)
 		{
 			if(err){throw err}
 			cb(result)
