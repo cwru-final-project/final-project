@@ -34,7 +34,18 @@ class Login extends Component
 		event.preventDefault()
 		console.log(this.state.loginEmail)
 		console.log(this.state.loginPassword)
-		API.login(this.state.loginEmail)
+
+		const data = 
+		{
+			"email":this.state.loginEmail,
+			"password":this.state.loginPassword
+		}
+
+		API.login(data, function(result)
+		{
+			console.log("Done with login!")
+			console.log(result)
+		})
 
 	}
 

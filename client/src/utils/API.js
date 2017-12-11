@@ -2,10 +2,10 @@ import axios from "axios";
 
 export default {
 
-	login: function(email)
+	login: function(data)
 	{
 		console.log("Getting email!")
-		return axios.get(`/login/${email}`);
+		return axios.get(`/login/${data.email}/${data.password}`);
 	},
 
 	register: function(data)

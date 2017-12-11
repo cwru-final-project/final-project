@@ -15,7 +15,7 @@ router.route("/api/:title")
 
 router.route("/findall").get(userController.findAll)
 
-router.route(`/login/:email`).get(userController.login)
+router.route(`/login/:email/:password`).get(userController.login)
 
 router.route(`/register`).post(userController.newUser)
 
