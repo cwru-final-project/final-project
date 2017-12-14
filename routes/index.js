@@ -1,16 +1,24 @@
 const path = require("path");
 const router = require("express").Router();
-/*const articleController = require("../controllers/articleController");
+const userController = require("../controllers/userController")
+const chatController = require("../controllers/chatController")
 
-router.route("/api")
-  .get(articleController.findAll)
-  .post(articleController.create)
-  .delete(articleController.remove);
+router.route("/findall").get(userController.findAll)
 
-router.route("/api/:title")
-	.delete(articleController.remove)
-*/
-// If no API routes are hit, send the React app
+router.route("/findallbyroom/:room").get(userController.findAllByRoom)
+
+router.route("/find/:token").get(userController.findOneByToken)
+
+router.route(`/login/:email/:password`).get(userController.login)
+
+router.route(`/register`).post(userController.newUser)
+
+router.route(`/updateroom`).post(userController.updateRoom)
+
+router.route(`/findallmessages/:table`).get(chatController.findAllMessages)
+
+router.route(`/message`).post(chatController.postMessage)
+
 router.use(function(req, res) 
 {
   	res.sendFile(path.join(__dirname, "../client/build/index.html"));

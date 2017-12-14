@@ -1,5 +1,5 @@
-var mysql = require("mysql");
-/*var connection = mysql.createConnection(
+const mysql = require("mysql");
+/*const connection = mysql.createConnection(
 {
 	host: "o3iyl77734b9n3tg.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
 	user: "gkkcbxxo8vtnc3aa",
@@ -8,7 +8,7 @@ var mysql = require("mysql");
 });
 */
 
-var connection = mysql.createConnection(
+const connection = mysql.createConnection(
 {
 	host: "localhost",
 	port: 3306,
