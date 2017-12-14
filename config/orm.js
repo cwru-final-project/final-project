@@ -72,6 +72,15 @@ const orm =
 			if(err){throw err}
 			cb(result)
 		})
+	},
+
+	findAllMessages: function(table, cb)
+	{
+		connection.query(`SELECT users.name, ${table}.message FROM users INNER JOIN ${table} ON users.id = ${table}.userid ORDER BY ${table}.id`, function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
 	}
 }
 

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import API from "../utils/API";
 import User from "./User"
+import Message from "./Message"
 
 const styles =
 {
 	chatbox:
 	{
-		"border":"2px solid black"
+		"height":"400px",
+		"overflow":"scroll"
 	},
 }
 
@@ -20,7 +22,8 @@ class Chatroom extends Component
 		token: "",
 		room: "",
 		users:[],
-		message:""
+		message:"",
+		messages:[]
 	}
 
 	componentDidMount = () =>
@@ -46,6 +49,31 @@ class Chatroom extends Component
 			API.findAllByRoom(result.data[0].current_room).then(function(result)
 			{
 				This.setState({users:result.data})
+
+				const data = This.state.room+'_chats'
+
+				API.findAllMessages(data).then(function(result)
+				{
+					This.setState({messages:result.data})
+					console.log(This.state)
+				})
+			})
+		})
+	}
+
+	updateUsersAndMessages = () =>
+	{
+		const This = this
+
+		API.findAllByRoom(this.state.room).then(function(result)
+		{
+			This.setState({users:result.data})
+
+			const data = This.state.room+'_chats'
+
+			API.findAllMessages(data).then(function(result)
+			{
+				This.setState({messages:result.data})
 				console.log(This.state)
 			})
 		})
@@ -69,9 +97,11 @@ class Chatroom extends Component
 			message: message
 		}
 
+		const This = this
 		API.postMessage(data).then(function(result)
 		{
-			console.log("message posted!")
+			This.updateUsersAndMessages()
+			This.setState({message:""})
 		})
 	}
 
@@ -103,8 +133,8 @@ class Chatroom extends Component
 							<div className="card-header">
 								Chat
 							</div>
-							<div className="card-body">
-
+							<div className="card-body text-left" style={styles.chatbox}>
+								{this.state.messages.map((message, i) => <Message key={i} name={message.name} message={message.message}/>)}
 							</div>
 							<div className="card-footer text-muted">
 								<div className="input-group">

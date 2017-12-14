@@ -30,10 +30,10 @@ export default {
 	postMessage: function(data)
 	{
 		return axios.post(`/message`, data)
-	}
+	},
 
-/*  // Saves a book to the database
-  saveBook: function(bookData) {
-    return axios.post("/api/books", bookData);
-  }*/
+	findAllMessages: function(data)
+	{
+		return axios.get(`/findallmessages/${data}`);
+	}
 };

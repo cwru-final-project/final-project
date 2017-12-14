@@ -20,7 +20,7 @@ class Pickroom extends Component
 
 		API.updateRoom(data).then(function(result)
 		{
-			console.log("room updated")
+			window.location = "/chatroom"
 		})
 	}
 

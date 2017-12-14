@@ -8,6 +8,14 @@ const chat =
 		{
 			cb(result)
 		})
+	},
+
+	findAllMessages: function(table, cb)
+	{
+		orm.findAllMessages(table, function(result)
+		{
+			cb(result)
+		})
 	}
 }
 
