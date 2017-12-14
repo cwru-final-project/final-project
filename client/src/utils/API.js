@@ -11,6 +11,11 @@ export default {
 	register: function(data)
 	{
 		return axios.post(`/register`, data);
+	},
+
+	findOneByToken: function(data)
+	{
+		return axios.get(`/find/${data.token}`)
 	}
 
 /*  // Saves a book to the database

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from './components/Header'
 import Login from './components/Login'
+import Pickroom from './components/Pickroom'
 import NoMatch from './components/NoMatch'
 
 class App extends Component {
@@ -13,9 +14,9 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Login} />
+            <Route exact path="/pickroom" component={Pickroom} />
             <Route component={NoMatch} />
           </Switch>
-
 
         </Router>
       </div>

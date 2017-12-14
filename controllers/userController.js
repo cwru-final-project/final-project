@@ -3,6 +3,20 @@ const usersModel = require('../models/users-model.js');
 const aesjs = require('aes-js');
 const key = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ];
 
+const createToken = function()
+{
+	var inputs = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+	var token = "";
+
+	for (var i=0; i<10; i++)
+	{
+		var r = Math.floor(Math.random()*(inputs.length-1));
+		token = token + inputs[r];
+	}
+
+	return token;
+}
+
 module.exports = 
 {
 	findAll: function(req, res)
@@ -24,26 +38,34 @@ module.exports =
 		{
 			if (!result[0])
 			{
-				console.log("There is no user with this email.")
-				res.send("There is no user with this email.")
+				res.send("No email")
 			}
 
 			else if (result[0].password !== encryptedHex)
 			{
-				console.log("This is the wrong password!")
-				res.send("This is the wrong password!")
+				res.send("Wrong password!")
 			}
 
 			else if (result[0].password === encryptedHex)
 			{
-				console.log("You're in!")
-				res.send("You're in!")
+				console.log("Great!")
+				const token = createToken();
+				usersModel.updateToken(token, result[0].email, function(result)
+				{
+					console.log(result);
+
+					const data = 
+					{
+						token: token
+					}
+
+					res.send(data);
+				})
 			}
 
 			else
 			{
-				console.log("There seems to have been an issue.")
-				res.send("There seems to have been an issue.")
+				res.send("Error")
 			}
 		})
 	},
@@ -59,16 +81,30 @@ module.exports =
 		{
 			if (!result[0])
 			{
-				usersModel.newUser(req.body.name, req.body.email, encryptedHex, req.body.age, function(result)
+				const token = createToken()
+				usersModel.newUser(req.body.name, req.body.email, encryptedHex, req.body.age, token, function(result)
 				{
-					console.log(result)
+					const data = 
+					{
+						token: token
+					}
+
+					res.send(data);
 				})
 			}
 
 			else
 			{
-				console.log("A user with this email already exists.")
+				res.send("Not new")
 			}
+		})
+	},
+
+	findOneByToken: function(req, res)
+	{
+		usersModel.findOneByToken(req.params.token, function(result)
+		{
+			res.send(result)
 		})
 	}
 }

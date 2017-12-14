@@ -20,14 +20,32 @@ const orm =
 		})
 	},
 
-	newUser: function(name, email, password, age, cb)
+	newUser: function(name, email, password, age, token, cb)
 	{
-		connection.query(`INSERT INTO users (name, email, password, age) VALUES (?, ?, ?, ?)`, [name, email, password, age], function(err, result)
+		connection.query(`INSERT INTO users (name, email, password, age, token) VALUES (?, ?, ?, ?, ?)`, [name, email, password, age, token], function(err, result)
 		{
 			if(err){throw err}
 			cb(result)
 		})
-	}
+	},
+
+	updateToken: function(token, email, cb)
+	{
+		connection.query(`UPDATE users SET token=? WHERE email=?`, [token, email], function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
+	},
+
+	findOneByToken: function(table, value, cb)
+	{
+		connection.query(`SELECT * FROM ${table} WHERE token = ?`, [value], function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
+	},
 }
 
 module.exports = orm;

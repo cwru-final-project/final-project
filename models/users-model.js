@@ -18,9 +18,25 @@ const user =
 		})
 	},
 
-	newUser: function(name, email, password, age, cb)
+	newUser: function(name, email, password, age, token,  cb)
 	{
-		orm.newUser(name, email, password, age, function(result)
+		orm.newUser(name, email, password, age, token, function(result)
+		{
+			cb(result)
+		})
+	},
+
+	updateToken: function(token, email, cb)
+	{
+		orm.updateToken(token, email, function(result)
+		{
+			cb(result)
+		})
+	},
+
+	findOneByToken: function(token, cb)
+	{
+		orm.findOneByToken("users", token, function(result)
 		{
 			cb(result)
 		})
