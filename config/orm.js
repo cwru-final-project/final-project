@@ -11,6 +11,15 @@ const orm =
 		})
 	},
 
+	findAllByRoom: function(table, room, cb)
+	{
+		connection.query(`SELECT * FROM ${table} WHERE current_room =?`, [room], function(err, result)
+		{
+			if(err){throw err;}
+			cb(result);
+		})
+	},
+
 	findOneByEmail: function(table, value, cb)
 	{
 		connection.query(`SELECT * FROM ${table} WHERE email = ?`, [value], function(err, result)
@@ -32,6 +41,15 @@ const orm =
 	updateToken: function(token, email, cb)
 	{
 		connection.query(`UPDATE users SET token=? WHERE email=?`, [token, email], function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
+	},
+
+	updateRoom: function(room, token, cb)
+	{
+		connection.query(`UPDATE users SET current_room=? WHERE token=?`, [room, token], function(err, result)
 		{
 			if(err){throw err}
 			cb(result)

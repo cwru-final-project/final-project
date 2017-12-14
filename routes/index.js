@@ -15,11 +15,15 @@ router.route("/api/:title")
 
 router.route("/findall").get(userController.findAll)
 
+router.route("/findallbyroom").get(userController.findAll)
+
 router.route("/find/:token").get(userController.findOneByToken)
 
 router.route(`/login/:email/:password`).get(userController.login)
 
 router.route(`/register`).post(userController.newUser)
+
+router.route(`/updateroom`).post(userController.updateRoom)
 
 router.use(function(req, res) 
 {

@@ -27,6 +27,14 @@ module.exports =
 		})
 	},
 
+	findAllByRoom: function(req, res)
+	{
+		usersModel.findAll(req.params.room, function(result)
+		{
+			console.log(result)
+		})
+	},
+
 	login: function(req, res)
 	{
 		const textBytes = aesjs.utils.utf8.toBytes(req.params.password);
@@ -67,6 +75,14 @@ module.exports =
 			{
 				res.send("Error")
 			}
+		})
+	},
+
+	updateRoom: function(req, res)
+	{
+		usersModel.updateRoom(req.body.room, req.body.token, function(result)
+		{
+			res.end()
 		})
 	},
 

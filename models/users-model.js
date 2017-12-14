@@ -10,6 +10,14 @@ const user =
 		});
 	},
 
+	findAllByRoom: function(room, cb)
+	{
+		orm.findAllByRoom("users", room, function(result)
+		{
+			cb(result)
+		});
+	},
+
 	login: function(value, cb)
 	{
 		orm.findOneByEmail("users", value, function(result)
@@ -29,6 +37,14 @@ const user =
 	updateToken: function(token, email, cb)
 	{
 		orm.updateToken(token, email, function(result)
+		{
+			cb(result)
+		})
+	},
+
+	updateRoom: function(room, token, cb)
+	{
+		orm.updateRoom(room, token, function(result)
 		{
 			cb(result)
 		})

@@ -4,7 +4,6 @@ export default {
 
 	login: function(data)
 	{
-		console.log("Getting email!")
 		return axios.get(`/login/${data.email}/${data.password}`);
 	},
 
@@ -16,6 +15,16 @@ export default {
 	findOneByToken: function(data)
 	{
 		return axios.get(`/find/${data.token}`)
+	},
+
+	updateRoom: function(data)
+	{
+		return axios.post(`/updateroom`, data)
+	},
+
+	findAllByRoom: function(data)
+	{
+		return axios.get(`/findallbyroom`, data)
 	}
 
 /*  // Saves a book to the database

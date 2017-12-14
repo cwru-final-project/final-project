@@ -8,6 +8,22 @@ class Pickroom extends Component
 		name: ""
 	}
 
+	updateRoom = event =>
+	{
+		const token = sessionStorage.getItem('token');
+
+		const data = 
+		{
+			room: event.target.name,
+			token: token
+		}
+
+		API.updateRoom(data).then(function(result)
+		{
+			console.log("room updated")
+		})
+	}
+
 	componentDidMount = () =>
 	{
 		const token = sessionStorage.getItem('token');
@@ -39,10 +55,10 @@ class Pickroom extends Component
 					<div className="col-md-4">
 					</div>
 					<div className="col-md-2">
-						<button type="button" className="btn btn-primary">Happy</button>
+						<button type="button" className="btn btn-primary" onClick={this.updateRoom} name="happy">Happy</button>
 					</div>
 					<div className="col-md-2">
-						<button type="button" className="btn btn-primary">Sad</button>
+						<button type="button" className="btn btn-primary" onClick={this.updateRoom} name="sad">Sad</button>
 					</div>
 					<div className="col-md-4">
 					</div>
