@@ -24,7 +24,12 @@ export default {
 
 	findAllByRoom: function(data)
 	{
-		return axios.get(`/findallbyroom`, data)
+		return axios.get(`/findallbyroom/${data}`)
+	},
+
+	postMessage: function(data)
+	{
+		return axios.post(`/message`, data)
 	}
 
 /*  // Saves a book to the database

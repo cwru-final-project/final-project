@@ -29,9 +29,9 @@ module.exports =
 
 	findAllByRoom: function(req, res)
 	{
-		usersModel.findAll(req.params.room, function(result)
+		usersModel.findAllByRoom(req.params.room, function(result)
 		{
-			console.log(result)
+			res.send(result)
 		})
 	},
 

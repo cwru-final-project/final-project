@@ -1,6 +1,7 @@
 const path = require("path");
 const router = require("express").Router();
 const userController = require("../controllers/userController")
+const chatController = require("../controllers/chatController")
 /*const articleController = require("../controllers/articleController");
 
 router.route("/api")
@@ -15,7 +16,7 @@ router.route("/api/:title")
 
 router.route("/findall").get(userController.findAll)
 
-router.route("/findallbyroom").get(userController.findAll)
+router.route("/findallbyroom/:room").get(userController.findAllByRoom)
 
 router.route("/find/:token").get(userController.findOneByToken)
 
@@ -24,6 +25,8 @@ router.route(`/login/:email/:password`).get(userController.login)
 router.route(`/register`).post(userController.newUser)
 
 router.route(`/updateroom`).post(userController.updateRoom)
+
+router.route(`/message`).post(chatController.postMessage)
 
 router.use(function(req, res) 
 {

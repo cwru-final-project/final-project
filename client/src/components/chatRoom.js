@@ -14,10 +14,13 @@ class Chatroom extends Component
 {
 	state = 
 	{
+		id:0,
 		name: "",
 		age: "",
 		token: "",
-		room: ""
+		room: "",
+		users:[],
+		message:""
 	}
 
 	componentDidMount = () =>
@@ -34,15 +37,41 @@ class Chatroom extends Component
 
 		API.findOneByToken(data).then(function(result)
 		{
+			This.setState({id: result.data[0].id})
 			This.setState({name: result.data[0].name})
 			This.setState({age: result.data[0].age})
 			This.setState({token: result.data[0].token})
 			This.setState({room: result.data[0].current_room})
 
-			API.findAllByRoom(This.state.room).then(function(result)
+			API.findAllByRoom(result.data[0].current_room).then(function(result)
 			{
-				console.log(result)
+				This.setState({users:result.data})
+				console.log(This.state)
 			})
+		})
+	}
+
+	updateField = event =>
+	{
+		this.setState({message: event.target.value})
+	}
+
+	sendMessage = event =>
+	{
+		const table = this.state.room+'_chats'
+		const userid = this.state.id
+		const message = this.state.message
+
+		const data = 
+		{
+			table: table,
+			userid: userid,
+			message: message
+		}
+
+		API.postMessage(data).then(function(result)
+		{
+			console.log("message posted!")
 		})
 	}
 
@@ -58,23 +87,33 @@ class Chatroom extends Component
 				</div>
 
 				<div className="row text-center">
-					<div className="col-md-3" style={styles.chatbox}>
-					</div>
-					<div className="col-md-9" style={styles.chatbox}>
-					</div>
-				</div>
-
-
-				<div className="row text-center">
 					<div className="col-md-3">
-						
+
+						<div className="card">
+							<div className="card-header">
+								Who's here?
+							</div>
+							<ul className="list-group list-group-flush">
+								{this.state.users.map((user, i) => <User key={i} name={user.name} />)}	
+							</ul>
+						</div>
 					</div>
 					<div className="col-md-9">
-						<div className="input-group">
-							<input type="text" className="form-control" placeholder="Search for..." aria-label="Search for..."/>
-							<span className="input-group-btn">
-								<button className="btn btn-success" type="button">Send!</button>
-							</span>
+						<div className="card">
+							<div className="card-header">
+								Chat
+							</div>
+							<div className="card-body">
+
+							</div>
+							<div className="card-footer text-muted">
+								<div className="input-group">
+									<input type="text" className="form-control" placeholder="Chat away!" value={this.state.message} onChange={this.updateField} />
+									<span className="input-group-btn">
+										<button className="btn btn-success" type="button" onClick={this.sendMessage}>Send!</button>
+									</span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

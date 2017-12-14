@@ -13,7 +13,7 @@ const orm =
 
 	findAllByRoom: function(table, room, cb)
 	{
-		connection.query(`SELECT * FROM ${table} WHERE current_room =?`, [room], function(err, result)
+		connection.query(`SELECT id, name, age FROM ${table} WHERE current_room=?`, [room], function(err, result)
 		{
 			if(err){throw err;}
 			cb(result);
@@ -64,6 +64,15 @@ const orm =
 			cb(result)
 		})
 	},
+
+	postMessage: function(table, userid, message, cb)
+	{
+		connection.query(`INSERT INTO ${table} (userid, message) VALUES (?, ?)`, [userid, message], function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
+	}
 }
 
 module.exports = orm;

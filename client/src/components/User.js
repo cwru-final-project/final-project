@@ -2,7 +2,7 @@ import React from 'react';
 
 const User = props =>
 (
-	<p>{props.name}</p>
+	<li className="list-group-item">{props.name}</li>
 )
 
 export default User;
