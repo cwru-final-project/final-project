@@ -31,6 +31,8 @@ class Chatroom extends Component
 		const token = sessionStorage.getItem('token');
 		this.setState({token: token})
 
+		console.log(this)
+
 		const data =
 		{
 			token: token
@@ -55,10 +57,36 @@ class Chatroom extends Component
 				API.findAllMessages(data).then(function(result)
 				{
 					This.setState({messages:result.data})
-					console.log(This.state)
+					setInterval(function()
+					{
+						This.updateUsersAndMessages()
+						//window.onunload = This.leaving()
+					}, 1000)
 				})
 			})
 		})
+	}
+
+/*	leaving = () =>
+	{
+		alert("I'm leaving!")
+		const data = 
+		{
+			token: this.state.token,
+			room: ""
+		}
+
+		API.updateRoom(data)
+	}*/
+	handleLocationChange = () =>
+	{
+		alert("You leaving?")
+	}
+
+	componentDidUpdate = () =>
+	{
+		const chat = document.getElementById("messages");
+		chat.scrollTop = chat.scrollHeight;
 	}
 
 	updateUsersAndMessages = () =>
@@ -74,7 +102,6 @@ class Chatroom extends Component
 			API.findAllMessages(data).then(function(result)
 			{
 				This.setState({messages:result.data})
-				console.log(This.state)
 			})
 		})
 	}
@@ -105,6 +132,16 @@ class Chatroom extends Component
 		})
 	}
 
+	updateChat = () =>
+	{
+		const This = this
+		setTimeout(function()
+		{
+			console.log("updating...")
+			This.updateUsersAndMessages()
+		}, 1000)
+	}
+
 	render()
 	{
 		return (
@@ -133,7 +170,7 @@ class Chatroom extends Component
 							<div className="card-header">
 								Chat
 							</div>
-							<div className="card-body text-left" style={styles.chatbox}>
+							<div className="card-body text-left" style={styles.chatbox} id="messages">
 								{this.state.messages.map((message, i) => <Message key={i} name={message.name} message={message.message}/>)}
 							</div>
 							<div className="card-footer text-muted">

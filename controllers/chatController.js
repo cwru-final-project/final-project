@@ -13,7 +13,6 @@ module.exports =
 
 	findAllMessages: function(req, res)
 	{
-		console.log("CAN YOU SEE ME!?")
 		chatModel.findAllMessages(req.params.table, function(result)
 		{
 			res.send(result)

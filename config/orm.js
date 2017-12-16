@@ -81,6 +81,15 @@ const orm =
 			if(err){throw err}
 			cb(result)
 		})
+	},
+
+	updateField: function(table, setfield, setvalue, wherefield, wherevalue, cb)
+	{
+		connection.query(`UPDATE ${table} SET ${setfield} = ? WHERE ${wherefield} = ?`, [setvalue, wherevalue], function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
 	}
 }
 
