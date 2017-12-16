@@ -31,6 +31,8 @@ class Chatroom extends Component
 		const token = sessionStorage.getItem('token');
 		this.setState({token: token})
 
+		console.log(this)
+
 		const data =
 		{
 			token: token
@@ -40,11 +42,12 @@ class Chatroom extends Component
 
 		API.findOneByToken(data).then(function(result)
 		{
-			This.setState({id: result.data[0].id})
-			This.setState({name: result.data[0].name})
-			This.setState({age: result.data[0].age})
-			This.setState({token: result.data[0].token})
-			This.setState({room: result.data[0].current_room})
+			This.setState({
+				id: result.data[0].id, 
+				name: result.data[0].name, 
+				age: result.data[0].age, 
+				token: result.data[0].token, 
+				room: result.data[0].current_room})
 
 			API.findAllByRoom(result.data[0].current_room).then(function(result)
 			{
@@ -55,12 +58,48 @@ class Chatroom extends Component
 				API.findAllMessages(data).then(function(result)
 				{
 					This.setState({messages:result.data})
-					console.log(This.state)
+					setInterval(function()
+					{
+						This.updateUsersAndMessages()
+					}, 1000)
+
+					//window.unload = This.leaving()
 				})
 			})
 		})
 	}
 
+	leaving = () =>
+	{
+		alert("I'm leaving!")
+		const data = 
+		{
+			token: this.state.token,
+			room: ""
+		}
+
+		API.updateRoom(data)
+	}
+
+	componentWillUpdate = () =>
+	{
+
+/*		const chat = document.getElementById("messages");
+		console.log(chat.scrollTop);
+		console.log(chat.scrollHeight);*/
+	}
+
+	componentWillUnmount = () =>
+	{
+		alert("AHHHHHHHHHHHHHHHHHHHH!")
+	}
+
+/*	componentDidUpdate = () =>
+	{
+		const chat = document.getElementById("messages");
+		chat.scrollTop = chat.scrollHeight;
+	}
+*/
 	updateUsersAndMessages = () =>
 	{
 		const This = this
@@ -74,7 +113,6 @@ class Chatroom extends Component
 			API.findAllMessages(data).then(function(result)
 			{
 				This.setState({messages:result.data})
-				console.log(This.state)
 			})
 		})
 	}
@@ -133,7 +171,7 @@ class Chatroom extends Component
 							<div className="card-header">
 								Chat
 							</div>
-							<div className="card-body text-left" style={styles.chatbox}>
+							<div className="card-body text-left" style={styles.chatbox} id="messages">
 								{this.state.messages.map((message, i) => <Message key={i} name={message.name} message={message.message}/>)}
 							</div>
 							<div className="card-footer text-muted">

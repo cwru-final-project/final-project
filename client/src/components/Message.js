@@ -4,12 +4,16 @@ const styles =
 {
 	name:
 	{
-		"fontWeight":"bold"
+		"fontWeight":"bold",
+		"marginBottom":"0px"
 	}
 }
 const Message = props =>
 (
-	<p><div style={styles.name}>{props.name}:</div> {props.message}</p>
+	<div>
+	<p style={styles.name}>{props.name}:</p>
+	<p>{props.message}</p>
+	</div>
 )
 
 export default Message;
