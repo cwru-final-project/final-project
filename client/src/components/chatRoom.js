@@ -60,14 +60,14 @@ class Chatroom extends Component
 					setInterval(function()
 					{
 						This.updateUsersAndMessages()
-						//window.onunload = This.leaving()
+						window.onunload = null;
 					}, 1000)
 				})
 			})
 		})
 	}
 
-/*	leaving = () =>
+	leaving = () =>
 	{
 		alert("I'm leaving!")
 		const data = 
@@ -77,18 +77,27 @@ class Chatroom extends Component
 		}
 
 		API.updateRoom(data)
-	}*/
-	handleLocationChange = () =>
-	{
-		alert("You leaving?")
 	}
 
-	componentDidUpdate = () =>
+	componentWillUpdate = () =>
+	{
+
+/*		const chat = document.getElementById("messages");
+		console.log(chat.scrollTop);
+		console.log(chat.scrollHeight);*/
+	}
+
+	componentWillUnmount = () =>
+	{
+		alert("AHHHHHHHHHHHHHHHHHHHH!")
+	}
+
+/*	componentDidUpdate = () =>
 	{
 		const chat = document.getElementById("messages");
 		chat.scrollTop = chat.scrollHeight;
 	}
-
+*/
 	updateUsersAndMessages = () =>
 	{
 		const This = this
@@ -130,16 +139,6 @@ class Chatroom extends Component
 			This.updateUsersAndMessages()
 			This.setState({message:""})
 		})
-	}
-
-	updateChat = () =>
-	{
-		const This = this
-		setTimeout(function()
-		{
-			console.log("updating...")
-			This.updateUsersAndMessages()
-		}, 1000)
 	}
 
 	render()

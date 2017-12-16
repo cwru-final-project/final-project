@@ -23,6 +23,10 @@ const styles =
 
 class Header extends Component 
 {
+	home = event =>
+	{
+		window.location="/"
+	}
 	render()
 	{
 		return (
@@ -30,7 +34,7 @@ class Header extends Component
 			<div className="container">
 				<div className="row">
 					<div className="col-md-2">
-						<img src={logo} style={styles.image} alt="logo"/>
+						<img src={logo} style={styles.image} alt="logo" onClick={this.home}/>
 					</div>
 					<div className="col-md-10">
 						<p style={styles.headerText}>Mood Rooms</p>
