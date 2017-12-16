@@ -3,15 +3,19 @@ import { withRouter } from 'react-router'
 
 class App extends Component {
 
-  componentWillMount() {
+  componentWillMount() 
+  {
     console.log("boop!")
     this.unlisten = this.props.history.listen((location, action) => {
      alert("Can you see me?")
     });
   }
-  componentWillUnmount() {
-      this.unlisten();
+
+  componentWillUnmount() 
+  {
+      console.log("HIHIHIHI!")
   }
+
   render() {
      return (
          <div>{this.props.children}</div>

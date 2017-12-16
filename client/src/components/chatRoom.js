@@ -42,11 +42,12 @@ class Chatroom extends Component
 
 		API.findOneByToken(data).then(function(result)
 		{
-			This.setState({id: result.data[0].id})
-			This.setState({name: result.data[0].name})
-			This.setState({age: result.data[0].age})
-			This.setState({token: result.data[0].token})
-			This.setState({room: result.data[0].current_room})
+			This.setState({
+				id: result.data[0].id, 
+				name: result.data[0].name, 
+				age: result.data[0].age, 
+				token: result.data[0].token, 
+				room: result.data[0].current_room})
 
 			API.findAllByRoom(result.data[0].current_room).then(function(result)
 			{
@@ -60,8 +61,9 @@ class Chatroom extends Component
 					setInterval(function()
 					{
 						This.updateUsersAndMessages()
-						window.onunload = null;
 					}, 1000)
+
+					//window.unload = This.leaving()
 				})
 			})
 		})
