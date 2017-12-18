@@ -18,6 +18,7 @@ class Chatroom extends Component
 	{
 		id:0,
 		name: "",
+		email: "",
 		age: "",
 		token: "",
 		room: "",
@@ -45,6 +46,7 @@ class Chatroom extends Component
 			This.setState({
 				id: result.data[0].id, 
 				name: result.data[0].name, 
+				email: result.data[0].email, 
 				age: result.data[0].age, 
 				token: result.data[0].token, 
 				room: result.data[0].current_room})
@@ -63,6 +65,7 @@ class Chatroom extends Component
 						This.updateUsersAndMessages()
 					}, 1000)
 
+					This.tokenCheck()
 					//window.unload = This.leaving()
 				})
 			})
@@ -71,7 +74,6 @@ class Chatroom extends Component
 
 	leaving = () =>
 	{
-		alert("I'm leaving!")
 		const data = 
 		{
 			token: this.state.token,
@@ -81,25 +83,33 @@ class Chatroom extends Component
 		API.updateRoom(data)
 	}
 
-	componentWillUpdate = () =>
+	tokenCheck = () =>
 	{
+		const This = this
+		setInterval(function()
+		{
+			console.log((Date.now()-This.state.token.slice(10))/1000)
+			if ((Date.now()-This.state.token.slice(10))/1000 > 100)
+			{
+				sessionStorage.removeItem("token")
+				This.leaving()
+				window.location="/"
+			}
 
-/*		const chat = document.getElementById("messages");
-		console.log(chat.scrollTop);
-		console.log(chat.scrollHeight);*/
+		}, 1000)
 	}
 
-	componentWillUnmount = () =>
+/*	componentWillUnmount = () =>
 	{
 		alert("AHHHHHHHHHHHHHHHHHHHH!")
-	}
+	}*/
 
-/*	componentDidUpdate = () =>
+	componentDidUpdate = () =>
 	{
 		const chat = document.getElementById("messages");
 		chat.scrollTop = chat.scrollHeight;
 	}
-*/
+
 	updateUsersAndMessages = () =>
 	{
 		const This = this
@@ -138,8 +148,14 @@ class Chatroom extends Component
 		const This = this
 		API.postMessage(data).then(function(result)
 		{
-			This.updateUsersAndMessages()
-			This.setState({message:""})
+			API.updateToken({email:This.state.email}).then(function(result)
+			{
+				console.log("New token...")
+				console.log(result.data.token)
+				This.updateUsersAndMessages()
+				This.setState({message:"", token:result.data.token})
+				sessionStorage.setItem('token', result.data.token);
+			})
 		})
 	}
 

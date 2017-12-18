@@ -2,8 +2,11 @@ const path = require("path");
 const router = require("express").Router();
 const userController = require("../controllers/userController")
 const chatController = require("../controllers/chatController")
+const connection = require('../config/connection.js');
 
 router.route("/findall").get(userController.findAll)
+
+router.route("/updateToken").post(userController.updateToken)
 
 router.route("/findallbyroom/:room").get(userController.findAllByRoom)
 

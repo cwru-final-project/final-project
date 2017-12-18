@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
-import API from "../utils/API";
+/*import API from "../utils/API";
 import User from "./User"
 import Message from "./Message"
-
-const styles =
-{
-	chatbox:
-	{
-		"height":"400px",
-		"overflow":"scroll"
-	},
-}
+*/
 
 class Chatroom extends Component 
 {
