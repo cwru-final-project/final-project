@@ -5,8 +5,9 @@ const key = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ];
 
 const createToken = function()
 {
-	var inputs = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-	var token = "";
+	const inputs = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+	let token = "";
+	const date = Date.now()
 
 	for (var i=0; i<10; i++)
 	{
@@ -14,7 +15,7 @@ const createToken = function()
 		token = token + inputs[r];
 	}
 
-	return token;
+	return token+date
 }
 
 module.exports = 
@@ -32,6 +33,24 @@ module.exports =
 		usersModel.findAllByRoom(req.params.room, function(result)
 		{
 			res.send(result)
+		})
+	},
+
+	updateToken: function(req, res)
+	{
+		console.log("HEY THERTE!!!")
+		console.log(req.body)
+		const token = createToken();
+		usersModel.updateToken(token, req.body.email, function(result)
+		{
+			console.log(result);
+
+			const data = 
+			{
+				token: token
+			}
+
+			res.send(data);
 		})
 	},
 

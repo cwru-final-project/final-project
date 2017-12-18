@@ -17,6 +17,11 @@ export default {
 		return axios.get(`/find/${data.token}`)
 	},
 
+	updateToken: function(data)
+	{
+		return axios.post('/updateToken', data)
+	},
+
 	updateRoom: function(data)
 	{
 		return axios.post(`/updateroom`, data)
