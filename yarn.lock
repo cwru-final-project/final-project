@@ -13,6 +13,10 @@ accepts@~1.3.4:
     mime-types "~2.1.16"
     negotiator "0.6.1"
 
+aes-js@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/aes-js/-/aes-js-3.1.0.tgz#f5f7588494526997cc635cc334c8bb8e967a5d82"
+
 ajv@^4.9.1:
   version "4.11.8"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-4.11.8.tgz#82ffb02b29e662ae53bdc20af15947706739c536"
