@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import API from "../utils/API";
+import logo from '../images/logo1.png';
+import styles from '../css/style.css';
 
-const styles =
-{
-	infoText:
-	{
-		"color":"black",
-		"fontSize":"30px",
-		"textAlign":"center"
-	}
-}
 
 class Login extends Component 
 {
@@ -68,10 +61,9 @@ class Login extends Component
 	{
 		return (
 
-
 			<div className="container">
 				<div className="row">
-					<div className="col-md-6">
+					<div className="col-md-4">
 						<p style={styles.infoText}>Login</p>
 						<form action="/login" method="get">
 							<div className="form-group">
@@ -86,7 +78,14 @@ class Login extends Component
 							<button type="submit" className="btn btn-primary" onClick={this.login}>Login</button>
 						</form>
 					</div>
-					<div className="col-md-6">
+					
+					<div className="col-md-4">
+						<div className= "logo">
+							<img src={logo} alt="logo"/>
+						</div>
+					</div>
+
+					<div className="col-md-4">
 						<p style={styles.infoText}>Register</p>
 						<form action="/register" method="post">
 							<div className="form-group">
