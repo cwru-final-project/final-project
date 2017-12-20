@@ -29,6 +29,7 @@ class Chatroom extends Component
 
 	componentDidMount = () =>
 	{
+
 		const token = sessionStorage.getItem('token');
 		this.setState({token: token})
 
@@ -65,8 +66,24 @@ class Chatroom extends Component
 						This.updateUsersAndMessages()
 					}, 1000)
 
-					This.tokenCheck()
-					//window.unload = This.leaving()
+					window.onbeforeunload = function(e)
+					{
+						console.log("I LEFT THE ROOM!")
+						const data = 
+						{
+							token: This.state.token,
+							room: ""
+						}
+
+						API.updateRoom(data).then(function()
+						{
+							const string = 'Logged Out';
+							e.returnValue = string;
+							return string;
+						})
+					}
+
+					//This.tokenCheck() TURN THIS BACK ON EVENTUALLY LUKE!!!!
 				})
 			})
 		})
@@ -74,6 +91,8 @@ class Chatroom extends Component
 
 	leaving = () =>
 	{
+		console.log("Leaving!")
+
 		const data = 
 		{
 			token: this.state.token,
