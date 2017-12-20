@@ -68,19 +68,7 @@ class Chatroom extends Component
 
 					window.onbeforeunload = function(e)
 					{
-						console.log("I LEFT THE ROOM!")
-						const data = 
-						{
-							token: This.state.token,
-							room: ""
-						}
-
-						API.updateRoom(data).then(function()
-						{
-							const string = 'Logged Out';
-							e.returnValue = string;
-							return string;
-						})
+						This.leaving()
 					}
 
 					//This.tokenCheck() TURN THIS BACK ON EVENTUALLY LUKE!!!!
