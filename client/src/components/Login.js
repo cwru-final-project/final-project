@@ -1,22 +1,9 @@
 import React, { Component } from 'react';
 /*import { Link } from "react-router-dom";*/
 import API from "../utils/API";
-import '../assets/test';
+import logo from '../images/logo1.png';
+import styles from '../css/style.css';
 
-const styles =
-{
-	infoText:
-	{
-		"color":"black",
-		"fontSize":"30px",
-		"textAlign":"center"
-	},
-
-	hit:
-	{
-		"display": "none"
-	}
-}
 
 class Login extends Component 
 {
@@ -105,9 +92,10 @@ class Login extends Component
 	render()
 	{
 		return (
+
 			<div className="container">
 				<div className="row">
-					<div className="col-md-6">
+					<div className="col-md-4">
 						<p style={styles.infoText}>Login</p>
 						<form action="/login" method="get">
 							<div className="form-group">
@@ -126,7 +114,14 @@ class Login extends Component
 					  		You hit the button!
 						</div>
 					</div>
-					<div className="col-md-6">
+					
+					<div className="col-md-4">
+						<div className= "logo">
+							<img src={logo} alt="logo"/>
+						</div>
+					</div>
+
+					<div className="col-md-4">
 						<p style={styles.infoText}>Register</p>
 						<form action="/register" method="post">
 							<div className="form-group">
