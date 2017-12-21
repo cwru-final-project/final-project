@@ -68,8 +68,27 @@ class Chatroom extends Component
 
 					window.onbeforeunload = function(e)
 					{
-						This.leaving()
+						//This.leaving()
+						let xhttp = new XMLHttpRequest();
+
+					    xhttp.onreadystatechange = function() 
+					    {
+						    if (this.readyState === 4 && this.status === 200)
+						    {
+						    	console.log("User logged out!")
+						    }
+						};
+
+						const data = 
+						{
+							token: This.state.token,
+							room: ""
+						}
+
+						xhttp.open("POST", "/updateroom", true);
+						xhttp.send(data);
 					}
+									
 
 					//This.tokenCheck() TURN THIS BACK ON EVENTUALLY LUKE!!!!
 				})

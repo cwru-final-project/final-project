@@ -99,6 +99,7 @@ module.exports =
 
 	updateRoom: function(req, res)
 	{
+		console.log("USER IS LOGGING OUT I THINK!")
 		usersModel.updateRoom(req.body.room, req.body.token, function(result)
 		{
 			res.end()
