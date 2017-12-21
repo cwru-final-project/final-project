@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+/*import { Link } from "react-router-dom";*/
 import API from "../utils/API";
 import logo from '../images/logo1.png';
 import styles from '../css/style.css';
@@ -27,6 +27,7 @@ class Login extends Component
 		event.preventDefault()
 		console.log(this.state.loginEmail)
 		console.log(this.state.loginPassword)
+		document.getElementById("hit").style.display = 'block';
 
 		const data = 
 		{
@@ -34,12 +35,31 @@ class Login extends Component
 			"password":this.state.loginPassword
 		}
 
-		API.login(data, function(result)
+		API.login(data).then(function(result)
 		{
 			console.log("Done with login!")
-			console.log(result)
-		})
 
+			if(result.data.token)
+			{
+				sessionStorage.setItem('token', result.data.token);
+				window.location='/pickroom'
+			}
+
+			else if (result.data === "No email")
+			{
+				console.log(result.data)
+			}
+
+			else if (result.data === "Wrong password")
+			{
+				console.log(result.data)
+			}
+
+			else
+			{
+				console.log(result.data)
+			}
+		})
 	}
 
 	register = event =>
@@ -54,7 +74,19 @@ class Login extends Component
 			"age": this.state.registerAge
 		}
 
-		API.register(data)
+		API.register(data).then(function(result)
+		{
+			if (result.data === "Not new")
+			{
+				console.log("User already exists")
+			}
+
+			else
+			{
+				sessionStorage.setItem('token', result.data.token);
+				window.location='/pickroom'
+			}
+		})
 	}
 
 	render()
@@ -77,6 +109,10 @@ class Login extends Component
 
 							<button type="submit" className="btn btn-primary" onClick={this.login}>Login</button>
 						</form>
+
+						<div className="alert alert-success" role="alert" id="hit" style={styles.hit}>
+					  		You hit the button!
+						</div>
 					</div>
 					
 					<div className="col-md-4">

@@ -18,6 +18,9 @@ primary key(id)
 CREATE TABLE happy_chats (
 id INT(50) auto_increment not null,
 userid INT(50) not null,
+FOREIGN KEY (userid)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
 message VARCHAR(255) not null,
 primary key(id)
 );
@@ -25,6 +28,9 @@ primary key(id)
 CREATE TABLE sad_chats (
 id INT(50) auto_increment not null,
 userid INT(50) not null,
+FOREIGN KEY (userid)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
 message VARCHAR(255) not null,
 primary key(id)
 );

@@ -1,4 +1,5 @@
 const mysql = require("mysql");
+let connection;
 /*const connection = mysql.createConnection(
 {
 	host: "o3iyl77734b9n3tg.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
@@ -8,15 +9,23 @@ const mysql = require("mysql");
 });
 */
 
-const connection = mysql.createConnection(
+if (process.env.JAWSDB_URL)
 {
-	host: "localhost",
-	port: 3306,
+	connection = mysql.createConnection(process.env.JAWSDB_URL)
+}
 
-	user: 'root',
-	password: 'Kent2012',
-	database: "moodrooms"
-});
+else
+{
+	connection = mysql.createConnection(
+	{
+		host: "localhost",
+		port: 3306,
+
+		user: 'root',
+		password: 'Lukkehoday1',
+		database: "moodrooms"
+	});	
+}
 
 
 connection.connect(function(err)

@@ -4,6 +4,10 @@ import styles from '../css/style.css';
 
 class Header extends Component 
 {
+	home = event =>
+	{
+		window.location="/"
+	}
 	render()
 	{
 		return ([
