@@ -27,9 +27,9 @@ class Chatroom extends Component
 		messages:[]
 	}
 
-	componentDidMount = () =>
+	componentWillMount = () =>
 	{
-
+		let allGood = false;
 		const token = sessionStorage.getItem('token');
 		this.setState({token: token})
 
@@ -44,90 +44,65 @@ class Chatroom extends Component
 
 		API.findOneByToken(data).then(function(result)
 		{
-			This.setState({
-				id: result.data[0].id, 
-				name: result.data[0].name, 
-				email: result.data[0].email, 
-				age: result.data[0].age, 
-				token: result.data[0].token, 
-				room: result.data[0].current_room})
+
+			if (result.data.constructor === String)
+			{
+				alert("Please log back in")
+				window.location = "/"
+			}
+
+			else
+			{
+				allGood = true;
+				This.setState({
+					id: result.data[0].id, 
+					name: result.data[0].name, 
+					email: result.data[0].email, 
+					age: result.data[0].age, 
+					token: result.data[0].token, 
+					room: result.data[0].current_room})
+			}
 
 			API.findAllByRoom(result.data[0].current_room).then(function(result)
 			{
-				This.setState({users:result.data})
-
-				const data = This.state.room+'_chats'
-
-				API.findAllMessages(data).then(function(result)
+				if (allGood)
 				{
-					This.setState({messages:result.data})
-					setInterval(function()
-					{
-						This.updateUsersAndMessages()
-					}, 1000)
+					This.setState({users:result.data})
 
-					window.onbeforeunload = function(e)
-					{
-						//This.leaving()
-						const xhttp = new XMLHttpRequest();
+					const data = This.state.room+'_chats'
 
-						const data = 
+					API.findAllMessages(data).then(function(result)
+					{
+						This.setState({messages:result.data})
+						setInterval(function()
 						{
-							token: This.state.token,
-							room: ""
-						}
+							This.updateUsersAndMessages()
+						}, 1000)
 
-						xhttp.open("POST", "/updateroom", false);
-						xhttp.setRequestHeader("Content-type", "application/json");
-						xhttp.send(JSON.stringify(data));
+						window.onbeforeunload = function(e)
+						{
+							//This.leaving()
+							const xhttp = new XMLHttpRequest();
 
-/*					    xhttp.onreadystatechange = function() 
-					    {
-					    	console.log("can you always see me?")
-						    if (this.readyState === 4 && this.status === 200)
-						    {
-						    	console.log("User logged out!")
-						    }
+							const data = 
+							{
+								token: This.state.token,
+								room: ""
+							}
 
-						    	const data = 
-								{
-									token: This.state.token,
-									room: ""
-								}
+							sessionStorage.setItem('token', '');
 
-								xhttp.open("POST", "/updateroom", false);
-								xhttp.send(data);
-						};*/
-					}
-									
+							xhttp.open("POST", "/updateroom", false);
+							xhttp.setRequestHeader("Content-type", "application/json");
+							xhttp.send(JSON.stringify(data));
+						}				
 
 					//This.tokenCheck() TURN THIS BACK ON EVENTUALLY LUKE!!!!
-				})
+					})
+				}
+
 			})
 		})
-	}
-
-	componentWillUnmount = () =>
-	{
-		const This = this
-						let xhttp = new XMLHttpRequest();
-
-					    xhttp.onreadystatechange = function() 
-					    {
-						    if (this.readyState === 4 && this.status === 200)
-						    {
-						    	console.log("User logged out!")
-						    }
-						};
-
-						const data = 
-						{
-							token: This.state.token,
-							room: ""
-						}
-
-						xhttp.open("POST", "/updateroom", true);
-						xhttp.send(data);
 	}
 
 	leaving = () =>
@@ -182,6 +157,11 @@ class Chatroom extends Component
 
 			API.findAllMessages(data).then(function(result)
 			{
+				for (let i=0; i<result.data.length; i++)
+				{
+					result.data[i].time = (Date.now()/(60*1000).toFixed(0) - parseInt((new Date(result.data[i].time).getTime() / (60*1000)).toFixed(0))).toFixed(0)
+				}
+
 				This.setState({messages:result.data})
 			})
 		})
@@ -248,7 +228,7 @@ class Chatroom extends Component
 								Chat
 							</div>
 							<div className="card-body text-left" style={styles.chatbox} id="messages">
-								{this.state.messages.map((message, i) => <Message key={i} name={message.name} message={message.message}/>)}
+								{this.state.messages.map((message, i) => <Message key={i} name={message.name} message={message.message} time={message.time}/>)}
 							</div>
 							<div className="card-footer text-muted">
 								<div className="input-group">

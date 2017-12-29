@@ -22,6 +22,7 @@ FOREIGN KEY (userid)
         REFERENCES users(id)
         ON DELETE CASCADE,
 message VARCHAR(255) not null,
+time TIMESTAMP DEFAULT UNIX_TIMESTAMP(),
 primary key(id)
 );
 
@@ -32,5 +33,6 @@ FOREIGN KEY (userid)
         REFERENCES users(id)
         ON DELETE CASCADE,
 message VARCHAR(255) not null,
+time TIMESTAMP DEFAULT UNIX_TIMESTAMP(),
 primary key(id)
 );
