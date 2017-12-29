@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styles from '../css/style.css';
 
 
 class Header extends Component 
@@ -10,7 +9,7 @@ class Header extends Component
 	}
 	render()
 	{
-		return ([
+		return (
 		<div className = "container-fluid">
 			
 			<div className="bgimg-1">
@@ -47,7 +46,7 @@ class Header extends Component
 			</div>
 		/</div>
 			
-		]);
+		);
 	}
 }
 

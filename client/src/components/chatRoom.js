@@ -69,6 +69,47 @@ class Chatroom extends Component
 					window.onbeforeunload = function(e)
 					{
 						//This.leaving()
+						const xhttp = new XMLHttpRequest();
+
+						const data = 
+						{
+							token: This.state.token,
+							room: ""
+						}
+
+						xhttp.open("POST", "/updateroom", false);
+						xhttp.setRequestHeader("Content-type", "application/json");
+						xhttp.send(JSON.stringify(data));
+
+/*					    xhttp.onreadystatechange = function() 
+					    {
+					    	console.log("can you always see me?")
+						    if (this.readyState === 4 && this.status === 200)
+						    {
+						    	console.log("User logged out!")
+						    }
+
+						    	const data = 
+								{
+									token: This.state.token,
+									room: ""
+								}
+
+								xhttp.open("POST", "/updateroom", false);
+								xhttp.send(data);
+						};*/
+					}
+									
+
+					//This.tokenCheck() TURN THIS BACK ON EVENTUALLY LUKE!!!!
+				})
+			})
+		})
+	}
+
+	componentWillUnmount = () =>
+	{
+		const This = this
 						let xhttp = new XMLHttpRequest();
 
 					    xhttp.onreadystatechange = function() 
@@ -87,13 +128,6 @@ class Chatroom extends Component
 
 						xhttp.open("POST", "/updateroom", true);
 						xhttp.send(data);
-					}
-									
-
-					//This.tokenCheck() TURN THIS BACK ON EVENTUALLY LUKE!!!!
-				})
-			})
-		})
 	}
 
 	leaving = () =>
@@ -130,11 +164,11 @@ class Chatroom extends Component
 		alert("AHHHHHHHHHHHHHHHHHHHH!")
 	}*/
 
-	componentDidUpdate = () =>
+/*	componentDidUpdate = () =>
 	{
 		const chat = document.getElementById("messages");
 		chat.scrollTop = chat.scrollHeight;
-	}
+	}*/
 
 	updateUsersAndMessages = () =>
 	{
