@@ -6,13 +6,20 @@ const styles =
 	{
 		"fontWeight":"bold",
 		"marginBottom":"0px"
+	},
+
+	date:
+	{
+		"fontSize": "10px"
 	}
 }
 const Message = props =>
 (
-	<div>
-	<p style={styles.name}>{props.name}:</p>
-	<p>{props.message}</p>
+	<div className="alert alert-secondary" role="alert">
+	  <h4 className="alert-heading">{props.name}</h4>
+	  <p className="mb-0" style={styles.date}>{props.time} minute(s) ago</p>
+	  <hr></hr>
+	  <p>{props.message}</p>
 	</div>
 )
 
