@@ -56,6 +56,22 @@ const user =
 		{
 			cb(result)
 		})
+	},
+
+	findWaiters: function(cb)
+	{
+		orm.findAllWhere("users", "waiting", 1, function(result)
+		{
+			cb(result)
+		})
+	},
+
+	updateField: function(setField, setValue, whereField, whereValue, cb)
+	{
+		orm.updateField("users", setField, setValue, whereField, whereValue, function(result)
+		{
+			cb(result)
+		})
 	}
 }
 

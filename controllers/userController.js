@@ -144,5 +144,40 @@ module.exports =
 		{
 			res.send(result)
 		})
+	},
+
+	updateField: function(req, res)
+	{
+		console.log("updating listening/speaking")
+		console.log(req.params)
+		usersModel.updateField(req.params.setField, parseInt(req.params.setValue), req.params.whereField, req.params.whereValue, function(result)
+		{
+			res.send("updated!")
+		})
+	},
+
+	findWaiters: function(req, res)
+	{
+		usersModel.findWaiters(function(result)
+		{
+			console.log("finding waiters result...")
+			console.log(result)
+			const userid = req.params.id
+
+			if (!result[0])
+			{
+				console.log("No one waiting!")
+				usersModel.updateField("waiting", 1, "id", userid, function(result)
+				{
+					res.send("done")
+				})
+			}
+
+			else
+			{
+				console.log("someone is waiting!")
+				console.log(result)
+			}
+		})
 	}
 }

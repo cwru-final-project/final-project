@@ -22,35 +22,46 @@ router.route(`/findallmessages/:table`).get(chatController.findAllMessages)
 
 router.route(`/message`).post(chatController.postMessage)
 
+router.route(`/findwaiters/:id`).get(userController.findWaiters)
+
+router.route(`/update/:setField/:setValue/:whereField/:whereValue`).get(userController.updateField)
+
 router.use(function(req, res) 
 {
   	res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
+
+//Deletes all messages that are more than an hour old.  Checks once a minute.  
 setInterval(function()
 {
 	connection.query(`SELECT DISTINCT current_room FROM users`, function(err, result)
 	{
-		result.forEach(object =>
+		if (result[0].current_room !== null)
 		{
-			if (object.current_room !== "")
+			console.log("Logging result from delete messages...")
+			console.log(result)
+			result.forEach(object =>
 			{
-				const room = object.current_room+"_chats";
-
-				connection.query(`SELECT id, time FROM ${room}`, function(err, result2)
+				if (object.current_room !== "")
 				{
-					result2.forEach(object2 =>
+					const room = object.current_room+"_chats";
+
+					connection.query(`SELECT id, time FROM ${room}`, function(err, result2)
 					{
-						if (Math.abs((Date.now()/(60*1000).toFixed(0) - parseInt((new Date(object2.time).getTime() / (60*1000)).toFixed(0))).toFixed(0)) > 59)
+						result2.forEach(object2 =>
 						{
-							connection.query(`DELETE FROM ${room} WHERE id=${object2.id}`, function(err, result3)
+							if (Math.abs((Date.now()/(60*1000).toFixed(0) - parseInt((new Date(object2.time).getTime() / (60*1000)).toFixed(0))).toFixed(0)) > 59)
 							{
-							})
-						}
+								connection.query(`DELETE FROM ${room} WHERE id=${object2.id}`, function(err, result3)
+								{
+								})
+							}
+						})
 					})
-				})
-			}
-		})
+				}
+			})
+		}
 	})
 }, 60*1000);
 

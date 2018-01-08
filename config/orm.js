@@ -20,6 +20,15 @@ const orm =
 		})
 	},
 
+	findAllWhere: function(table, field, value, cb)
+	{
+		connection.query(`SELECT * FROM ${table} WHERE ${field} = ?`, [value], function(err, result)
+		{
+			if(err){throw err;}
+			cb(result);
+		})
+	},
+
 	findOneByEmail: function(table, value, cb)
 	{
 		connection.query(`SELECT * FROM ${table} WHERE email = ?`, [value], function(err, result)
