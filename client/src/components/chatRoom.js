@@ -33,8 +33,6 @@ class Chatroom extends Component
 		const token = sessionStorage.getItem('token');
 		this.setState({token: token})
 
-		console.log(this)
-
 		const data =
 		{
 			token: token
@@ -53,7 +51,6 @@ class Chatroom extends Component
 
 			else if (result.data[0].current_room === "")
 			{
-				console.log("I'M NOT IN A ROOM!")
 				window.location = "/pickroom"
 			}
 
@@ -87,7 +84,6 @@ class Chatroom extends Component
 
 							window.onbeforeunload = function(e)
 							{
-								//This.leaving()
 								const xhttp = new XMLHttpRequest();
 
 								const data = 
@@ -95,8 +91,6 @@ class Chatroom extends Component
 									token: This.state.token,
 									room: ""
 								}
-
-								//sessionStorage.setItem('token', '');
 
 								xhttp.open("POST", "/updateroom", false);
 								xhttp.setRequestHeader("Content-type", "application/json");
@@ -106,9 +100,7 @@ class Chatroom extends Component
 						//This.tokenCheck() TURN THIS BACK ON EVENTUALLY LUKE!!!!
 						})
 					}
-
 				})
-
 			}
 		})
 	}
@@ -140,17 +132,6 @@ class Chatroom extends Component
 		}, 1000)
 	}
 
-/*	componentWillUnmount = () =>
-	{
-		alert("AHHHHHHHHHHHHHHHHHHHH!")
-	}*/
-
-/*	componentDidUpdate = () =>
-	{
-		const chat = document.getElementById("messages");
-		chat.scrollTop = chat.scrollHeight;
-	}*/
-
 	updateUsersAndMessages = () =>
 	{
 		const This = this
@@ -165,7 +146,7 @@ class Chatroom extends Component
 			{
 				for (let i=0; i<result.data.length; i++)
 				{
-					result.data[i].time = (Date.now()/(60*1000).toFixed(0) - parseInt((new Date(result.data[i].time).getTime() / (60*1000)).toFixed(0))).toFixed(0)
+					result.data[i].time = Math.abs((Date.now()/(60*1000).toFixed(0) - parseInt((new Date(result.data[i].time).getTime() / (60*1000)).toFixed(0))).toFixed(0))
 				}
 
 				This.setState({messages:result.data})

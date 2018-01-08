@@ -29,6 +29,15 @@ const orm =
 		})
 	},
 
+	deleteOne: function(table, field, value, cb)
+	{
+		connection.query(`DELETE FROM ${table} WHERE ? = ?`, [field, value], function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
+	},
+
 	newUser: function(name, email, password, age, token, cb)
 	{
 		connection.query(`INSERT INTO users (name, email, password, age, token) VALUES (?, ?, ?, ?, ?)`, [name, email, password, age, token], function(err, result)

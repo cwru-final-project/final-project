@@ -17,5 +17,14 @@ module.exports =
 		{
 			res.send(result)
 		})
+	},
+
+	deleteMessage: function(req, res)
+	{
+		console.log("Trying to delete!")
+		chatModel.deleteMessage(req.params.table, req.params.value, function(result)
+		{
+			res.send(result)
+		})
 	}
 }

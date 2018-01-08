@@ -27,4 +27,31 @@ router.use(function(req, res)
   	res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
+setInterval(function()
+{
+	connection.query(`SELECT DISTINCT current_room FROM users`, function(err, result)
+	{
+		result.forEach(object =>
+		{
+			if (object.current_room !== "")
+			{
+				const room = object.current_room+"_chats";
+
+				connection.query(`SELECT id, time FROM ${room}`, function(err, result2)
+				{
+					result2.forEach(object2 =>
+					{
+						if (Math.abs((Date.now()/(60*1000).toFixed(0) - parseInt((new Date(object2.time).getTime() / (60*1000)).toFixed(0))).toFixed(0)) > 59)
+						{
+							connection.query(`DELETE FROM ${room} WHERE id=${object2.id}`, function(err, result3)
+							{
+							})
+						}
+					})
+				})
+			}
+		})
+	})
+}, 60*1000);
+
 module.exports = router;
