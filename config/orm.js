@@ -20,9 +20,36 @@ const orm =
 		})
 	},
 
+	findAllWhere: function(table, field, value, cb)
+	{
+		connection.query(`SELECT * FROM ${table} WHERE ${field} = ?`, [value], function(err, result)
+		{
+			if(err){throw err;}
+			cb(result);
+		})
+	},
+
+	findAllWhereTwo: function(table, field1, value1, field2, value2, cb)
+	{
+		connection.query(`SELECT * FROM ${table} WHERE ${field1} = ? and ${field2} = ?`, [value1, value2], function(err, result)
+		{
+			if(err){throw err;}
+			cb(result);
+		})
+	},
+
 	findOneByEmail: function(table, value, cb)
 	{
 		connection.query(`SELECT * FROM ${table} WHERE email = ?`, [value], function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
+	},
+
+	deleteOne: function(table, field, value, cb)
+	{
+		connection.query(`DELETE FROM ${table} WHERE ? = ?`, [field, value], function(err, result)
 		{
 			if(err){throw err}
 			cb(result)
@@ -90,6 +117,25 @@ const orm =
 			if(err){throw err}
 			cb(result)
 		})
+	},
+
+	createTable: function(name, cb)
+	{
+		connection.query(
+			`CREATE TABLE ${name} (
+			id INT(50) auto_increment not null,
+			userid INT(50) not null,
+			FOREIGN KEY (userid)
+			        REFERENCES users(id)
+			        ON DELETE CASCADE,
+			message VARCHAR(255) not null,
+			time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			primary key(id)
+			);`, function(err, result)
+			{
+				if(err){throw err;}
+				cb(result)
+			})
 	}
 }
 

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import API from "../utils/API";
 import logo from '../images/logo1.png';
 import styles from '../css/style.css';
+import Header from './Header'
 
 
 class Login extends Component 
@@ -94,6 +95,7 @@ class Login extends Component
 		return (
 
 			<div className="container">
+				<Header />
 				<div className="row">
 					<div className="col-md-4">
 						<p style={styles.infoText}>Login</p>

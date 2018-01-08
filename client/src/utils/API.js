@@ -40,5 +40,15 @@ export default {
 	findAllMessages: function(data)
 	{
 		return axios.get(`/findallmessages/${data}`);
+	},
+
+	updateField: function(data)
+	{
+		return axios.get(`/update/${data.setField}/${data.setValue}/${data.whereField}/${data.whereValue}`)
+	},
+
+	findwaiters: function(data)
+	{
+		return axios.get(`/findwaiters/${data.id}/${data.intent}`)
 	}
 };
