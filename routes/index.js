@@ -22,6 +22,8 @@ router.route(`/findallmessages/:table`).get(chatController.findAllMessages)
 
 router.route(`/message`).post(chatController.postMessage)
 
+router.route(`/message/roll`).post(chatController.postRoll)
+
 router.route(`/findwaiters/:id/:intent`).get(userController.findWaiters)
 
 router.route(`/update/:setField/:setValue/:whereField/:whereValue`).get(userController.updateField)
