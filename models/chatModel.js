@@ -16,6 +16,14 @@ const chat =
 		{
 			cb(result)
 		})
+	},
+
+	deleteMessage: function(table, value, cb)
+	{
+		orm.deleteOne(table, "id", value, function(result)
+		{
+			cb(result)
+		})
 	}
 }
 

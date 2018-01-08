@@ -12,6 +12,9 @@ password VARCHAR(255) not null,
 age INT(50) not null,
 token VARCHAR(255), -- put token in session storage in browser --
 current_room VARCHAR(255),
+listening bit default 0,
+speaking bit default 0,
+waiting bit default 0,
 primary key(id)
 );
 
@@ -22,7 +25,7 @@ FOREIGN KEY (userid)
         REFERENCES users(id)
         ON DELETE CASCADE,
 message VARCHAR(255) not null,
-time TIMESTAMP DEFAULT UNIX_TIMESTAMP(),
+time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 primary key(id)
 );
 
@@ -33,6 +36,6 @@ FOREIGN KEY (userid)
         REFERENCES users(id)
         ON DELETE CASCADE,
 message VARCHAR(255) not null,
-time TIMESTAMP DEFAULT UNIX_TIMESTAMP(),
+time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 primary key(id)
 );
