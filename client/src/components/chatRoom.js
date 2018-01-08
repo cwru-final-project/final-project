@@ -51,6 +51,12 @@ class Chatroom extends Component
 				window.location = "/"
 			}
 
+			else if (result.data[0].current_room === "")
+			{
+				console.log("I'M NOT IN A ROOM!")
+				window.location = "/pickroom"
+			}
+
 			else
 			{
 				allGood = true;
@@ -61,54 +67,54 @@ class Chatroom extends Component
 					age: result.data[0].age, 
 					token: result.data[0].token, 
 					room: result.data[0].current_room})
-			}
+			
 
-			API.findAllByRoom(result.data[0].current_room).then(function(result)
-			{
-				if (allGood)
+				API.findAllByRoom(result.data[0].current_room).then(function(result)
 				{
-					This.setState({users:result.data})
-
-					const data = This.state.room+'_chats'
-
-					API.findAllMessages(data).then(function(result)
+					if (allGood)
 					{
-						This.setState({messages:result.data})
-						setInterval(function()
-						{
-							This.updateUsersAndMessages()
-						}, 1000)
+						This.setState({users:result.data})
 
-						window.onbeforeunload = function(e)
-						{
-							//This.leaving()
-							const xhttp = new XMLHttpRequest();
+						const data = This.state.room+'_chats'
 
-							const data = 
+						API.findAllMessages(data).then(function(result)
+						{
+							This.setState({messages:result.data})
+							setInterval(function()
 							{
-								token: This.state.token,
-								room: ""
-							}
+								This.updateUsersAndMessages()
+							}, 1000)
 
-							sessionStorage.setItem('token', '');
+							window.onbeforeunload = function(e)
+							{
+								//This.leaving()
+								const xhttp = new XMLHttpRequest();
 
-							xhttp.open("POST", "/updateroom", false);
-							xhttp.setRequestHeader("Content-type", "application/json");
-							xhttp.send(JSON.stringify(data));
-						}				
+								const data = 
+								{
+									token: This.state.token,
+									room: ""
+								}
 
-					//This.tokenCheck() TURN THIS BACK ON EVENTUALLY LUKE!!!!
-					})
-				}
+								//sessionStorage.setItem('token', '');
 
-			})
+								xhttp.open("POST", "/updateroom", false);
+								xhttp.setRequestHeader("Content-type", "application/json");
+								xhttp.send(JSON.stringify(data));
+							}				
+
+						//This.tokenCheck() TURN THIS BACK ON EVENTUALLY LUKE!!!!
+						})
+					}
+
+				})
+
+			}
 		})
 	}
 
 	leaving = () =>
 	{
-		console.log("Leaving!")
-
 		const data = 
 		{
 			token: this.state.token,
@@ -190,11 +196,11 @@ class Chatroom extends Component
 		{
 			API.updateToken({email:This.state.email}).then(function(result)
 			{
-				console.log("New token...")
-				console.log(result.data.token)
 				This.updateUsersAndMessages()
 				This.setState({message:"", token:result.data.token})
 				sessionStorage.setItem('token', result.data.token);
+				const chat = document.getElementById("messages");
+				chat.scrollTop = chat.scrollHeight;
 			})
 		})
 	}
