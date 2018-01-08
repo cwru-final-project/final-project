@@ -195,7 +195,9 @@ class Chatroom extends Component
 			<div className="container">
 				<div className="row text-center">
 					<div className="col-md-12">
-						<h2>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h2>
+						{this.state.room === "happy" ? <h2>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h2>
+						: this.state.room === "sad" ? <h2>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h2>
+						: <h2>One on One</h2>}
 					</div>
 				</div>
 
