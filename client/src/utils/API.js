@@ -49,6 +49,6 @@ export default {
 
 	findwaiters: function(data)
 	{
-		return axios.get(`/findwaiters/${data}`)
+		return axios.get(`/findwaiters/${data.id}/${data.intent}`)
 	}
 };

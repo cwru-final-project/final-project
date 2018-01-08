@@ -97,7 +97,7 @@ class Chatroom extends Component
 								xhttp.send(JSON.stringify(data));
 							}				
 
-						//This.tokenCheck() TURN THIS BACK ON EVENTUALLY LUKE!!!!
+						This.tokenCheck()
 						})
 					}
 				})
@@ -113,7 +113,10 @@ class Chatroom extends Component
 			room: ""
 		}
 
-		API.updateRoom(data)
+		API.updateRoom(data).then(function(result)
+		{
+			window.location="/"
+		})
 	}
 
 	tokenCheck = () =>
@@ -122,11 +125,10 @@ class Chatroom extends Component
 		setInterval(function()
 		{
 			console.log((Date.now()-This.state.token.slice(10))/1000)
-			if ((Date.now()-This.state.token.slice(10))/1000 > 100)
+			if ((Date.now()-This.state.token.slice(10))/1000 > 60)
 			{
 				sessionStorage.removeItem("token")
 				This.leaving()
-				window.location="/"
 			}
 
 		}, 1000)

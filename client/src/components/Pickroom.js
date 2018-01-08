@@ -37,9 +37,10 @@ class Pickroom extends Component
 
 		API.updateField({whereField: "id", whereValue: this.state.id, setField: "listening", setValue: 1}).then(function(result)
 		{
-			API.findwaiters(This.state.id).then(function(result2)
+			API.findwaiters({id: This.state.id, intent: "speaking"}).then(function(result2)
 			{
 				console.log(result2)
+				window.location = "/chatroom"
 			})		
 		})
 	}
@@ -48,12 +49,13 @@ class Pickroom extends Component
 	{
 		console.log("ready to speak")
 		const This = this
-		
+
 		API.updateField({whereField: "id", whereValue: this.state.id, setField: "speaking", setValue: 1}).then(function(result)
 		{
-			API.findwaiters(This.state.id).then(function(result2)
+			API.findwaiters({id: This.state.id, intent: "listening"}).then(function(result2)
 			{
 				console.log(result2)
+				window.location = "/chatroom"
 			})		
 		})
 	}
@@ -79,6 +81,17 @@ class Pickroom extends Component
 				age: result.data[0].age, 
 				token: result.data[0].token, 
 				room: result.data[0].current_room
+			})
+
+			API.updateField({whereField: "id", whereValue: This.state.id, setField: "listening", setValue: 0}).then(function(result)
+			{
+				API.updateField({whereField: "id", whereValue: This.state.id, setField: "speaking", setValue: 0}).then(function(result2)
+				{
+					API.updateField({whereField: "id", whereValue: This.state.id, setField: "waiting", setValue: 0}).then(function(result2)
+					{
+
+					})
+				})		
 			})
 		})
 	}

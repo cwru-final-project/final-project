@@ -58,9 +58,9 @@ const user =
 		})
 	},
 
-	findWaiters: function(cb)
+	findWaiters: function(intent, cb)
 	{
-		orm.findAllWhere("users", "waiting", 1, function(result)
+		orm.findAllWhereTwo("users", "waiting", 1, intent, 1, function(result)
 		{
 			cb(result)
 		})
@@ -69,6 +69,14 @@ const user =
 	updateField: function(setField, setValue, whereField, whereValue, cb)
 	{
 		orm.updateField("users", setField, setValue, whereField, whereValue, function(result)
+		{
+			cb(result)
+		})
+	},
+
+	createTable: function(name, cb)
+	{
+		orm.createTable(name, function(result)
 		{
 			cb(result)
 		})

@@ -18,6 +18,20 @@ const createToken = function()
 	return token+date
 }
 
+const createTableName = function()
+{
+	const inputs = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+	let token = "";	
+
+	for (var i=0; i<10; i++)
+	{
+		var r = Math.floor(Math.random()*(inputs.length-1));
+		token = token + inputs[r];
+	}
+
+	return token;
+}
+
 module.exports = 
 {
 	findAll: function(req, res)
@@ -148,8 +162,6 @@ module.exports =
 
 	updateField: function(req, res)
 	{
-		console.log("updating listening/speaking")
-		console.log(req.params)
 		usersModel.updateField(req.params.setField, parseInt(req.params.setValue), req.params.whereField, req.params.whereValue, function(result)
 		{
 			res.send("updated!")
@@ -158,7 +170,7 @@ module.exports =
 
 	findWaiters: function(req, res)
 	{
-		usersModel.findWaiters(function(result)
+		usersModel.findWaiters(req.params.intent, function(result)
 		{
 			console.log("finding waiters result...")
 			console.log(result)
@@ -169,7 +181,14 @@ module.exports =
 				console.log("No one waiting!")
 				usersModel.updateField("waiting", 1, "id", userid, function(result)
 				{
-					res.send("done")
+					const newRoom = createTableName()
+					usersModel.updateField("current_room", newRoom, "id", userid, function(result2)
+					{
+						usersModel.createTable(newRoom+"_chats", function(result3)
+						{
+							res.send("done")
+						})
+					})
 				})
 			}
 
@@ -177,6 +196,20 @@ module.exports =
 			{
 				console.log("someone is waiting!")
 				console.log(result)
+				const r = Math.floor(Math.random() * (result.length))
+				console.log("Going to match with..."+r)
+				console.log(result[r].id)
+				console.log(result[r].current_room)
+				usersModel.updateField("current_room", result[r].current_room, "id", userid, function(result2)
+				{
+					usersModel.updateField("waiting", 0, "id", userid, function(result3)
+					{
+						usersModel.updateField("waiting", 0, "id", result[r].id, function(result4)
+						{
+							res.send("done")
+						})
+					})
+				})
 			}
 		})
 	}

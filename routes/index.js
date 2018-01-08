@@ -22,7 +22,7 @@ router.route(`/findallmessages/:table`).get(chatController.findAllMessages)
 
 router.route(`/message`).post(chatController.postMessage)
 
-router.route(`/findwaiters/:id`).get(userController.findWaiters)
+router.route(`/findwaiters/:id/:intent`).get(userController.findWaiters)
 
 router.route(`/update/:setField/:setValue/:whereField/:whereValue`).get(userController.updateField)
 
@@ -37,13 +37,13 @@ setInterval(function()
 {
 	connection.query(`SELECT DISTINCT current_room FROM users`, function(err, result)
 	{
-		if (result[0].current_room !== null)
+		if (result[0] !== undefined)
 		{
 			console.log("Logging result from delete messages...")
 			console.log(result)
 			result.forEach(object =>
 			{
-				if (object.current_room !== "")
+				if (object.current_room !== "" && object.current_room !== null)
 				{
 					const room = object.current_room+"_chats";
 
