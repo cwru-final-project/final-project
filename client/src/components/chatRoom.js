@@ -175,17 +175,36 @@ class Chatroom extends Component
 		}
 
 		const This = this
-		API.postMessage(data).then(function(result)
+
+		if (data.message === "/roll")
 		{
-			API.updateToken({email:This.state.email}).then(function(result)
+			API.postRoll(data).then(function(result)
 			{
-				This.updateUsersAndMessages()
-				This.setState({message:"", token:result.data.token})
-				sessionStorage.setItem('token', result.data.token);
-				const chat = document.getElementById("messages");
-				chat.scrollTop = chat.scrollHeight;
+				API.updateToken({email:This.state.email}).then(function(result)
+				{
+					This.updateUsersAndMessages()
+					This.setState({message:"", token:result.data.token})
+					sessionStorage.setItem('token', result.data.token);
+					const chat = document.getElementById("messages");
+					chat.scrollTop = chat.scrollHeight;
+				})
+			})	
+		}
+
+		else
+		{
+			API.postMessage(data).then(function(result)
+			{
+				API.updateToken({email:This.state.email}).then(function(result)
+				{
+					This.updateUsersAndMessages()
+					This.setState({message:"", token:result.data.token})
+					sessionStorage.setItem('token', result.data.token);
+					const chat = document.getElementById("messages");
+					chat.scrollTop = chat.scrollHeight;
+				})
 			})
-		})
+		}
 	}
 
 	render()

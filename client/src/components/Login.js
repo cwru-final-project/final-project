@@ -67,27 +67,30 @@ class Login extends Component
 	{
 		event.preventDefault()
 
-		const data = 
+		if (this.state.registerName !== "Mind Over Mood")
 		{
-			"name": this.state.registerName,
-			"email": this.state.registerEmail,
-			"password": this.state.registerPassword,
-			"age": this.state.registerAge
+			const data = 
+			{
+				"name": this.state.registerName,
+				"email": this.state.registerEmail,
+				"password": this.state.registerPassword,
+				"age": this.state.registerAge
+			}
+
+			API.register(data).then(function(result)
+			{
+				if (result.data === "Not new")
+				{
+					console.log("User already exists")
+				}
+
+				else
+				{
+					sessionStorage.setItem('token', result.data.token);
+					window.location='/pickroom'
+				}
+			})
 		}
-
-		API.register(data).then(function(result)
-		{
-			if (result.data === "Not new")
-			{
-				console.log("User already exists")
-			}
-
-			else
-			{
-				sessionStorage.setItem('token', result.data.token);
-				window.location='/pickroom'
-			}
-		})
 	}
 
 	render()
