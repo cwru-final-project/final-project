@@ -34,8 +34,9 @@ router.use(function(req, res)
 });
 
 
-//Deletes all messages that are more than an hour old.  Checks once a minute.  
-setInterval(function()
+//Deletes all messages that are more than an hour old.  Checks once a minute.
+
+const deleteCheck = function()
 {
 	connection.query(`SELECT DISTINCT current_room FROM users`, function(err, result)
 	{
@@ -65,6 +66,12 @@ setInterval(function()
 			})
 		}
 	})
+}
+
+deleteCheck()
+setInterval(function()
+{
+	deleteCheck()
 }, 60*1000);
 
 module.exports = router;
