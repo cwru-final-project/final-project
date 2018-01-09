@@ -124,7 +124,8 @@ class Chatroom extends Component
 	{
 		if (this.state.room !== "happy" && this.state.room !== "sad" && this.state.oldUsers === 2 && this.state.users.length === 1)
 		{
-			const left = "Your partner left"
+			console.log("Your partner left")
+			window.location = "/pickroom"
 		}
 	}
 
