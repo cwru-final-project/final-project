@@ -24,7 +24,8 @@ class Chatroom extends Component
 		room: "",
 		users:[],
 		message:"",
-		messages:[]
+		messages:[],
+		oldUsers: 0
 	}
 
 	componentWillMount = () =>
@@ -97,7 +98,7 @@ class Chatroom extends Component
 								xhttp.send(JSON.stringify(data));
 							}				
 
-						This.tokenCheck()
+							//This.tokenCheck()
 						})
 					}
 				})
@@ -119,6 +120,14 @@ class Chatroom extends Component
 		})
 	}
 
+	componentDidUpdate = () =>
+	{
+		if (this.state.room !== "happy" && this.state.room !== "sad" && this.state.oldUsers === 2 && this.state.users.length === 1)
+		{
+			const left = "Your partner left"
+		}
+	}
+
 	tokenCheck = () =>
 	{
 		const This = this
@@ -137,6 +146,7 @@ class Chatroom extends Component
 	updateUsersAndMessages = () =>
 	{
 		const This = this
+		This.setState({oldUsers:this.state.users.length})
 
 		API.findAllByRoom(this.state.room).then(function(result)
 		{
@@ -163,6 +173,7 @@ class Chatroom extends Component
 
 	sendMessage = event =>
 	{
+		console.log(this.state)
 		const table = this.state.room+'_chats'
 		const userid = this.state.id
 		const message = this.state.message
@@ -216,6 +227,7 @@ class Chatroom extends Component
 					<div className="col-md-12">
 						{this.state.room === "happy" ? <h2>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h2>
 						: this.state.room === "sad" ? <h2>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h2>
+						: this.state.users.length === 1 ? <h2>Waiting for partner...</h2>
 						: <h2>One on One</h2>}
 					</div>
 				</div>
