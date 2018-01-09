@@ -97,7 +97,7 @@ class Chatroom extends Component
 								xhttp.send(JSON.stringify(data));
 							}				
 
-						//This.tokenCheck() TURN THIS BACK ON EVENTUALLY LUKE!!!!
+						This.tokenCheck()
 						})
 					}
 				})
@@ -113,7 +113,10 @@ class Chatroom extends Component
 			room: ""
 		}
 
-		API.updateRoom(data)
+		API.updateRoom(data).then(function(result)
+		{
+			window.location="/"
+		})
 	}
 
 	tokenCheck = () =>
@@ -122,11 +125,10 @@ class Chatroom extends Component
 		setInterval(function()
 		{
 			console.log((Date.now()-This.state.token.slice(10))/1000)
-			if ((Date.now()-This.state.token.slice(10))/1000 > 100)
+			if ((Date.now()-This.state.token.slice(10))/1000 > 60)
 			{
 				sessionStorage.removeItem("token")
 				This.leaving()
-				window.location="/"
 			}
 
 		}, 1000)
@@ -173,17 +175,36 @@ class Chatroom extends Component
 		}
 
 		const This = this
-		API.postMessage(data).then(function(result)
+
+		if (data.message === "/roll")
 		{
-			API.updateToken({email:This.state.email}).then(function(result)
+			API.postRoll(data).then(function(result)
 			{
-				This.updateUsersAndMessages()
-				This.setState({message:"", token:result.data.token})
-				sessionStorage.setItem('token', result.data.token);
-				const chat = document.getElementById("messages");
-				chat.scrollTop = chat.scrollHeight;
+				API.updateToken({email:This.state.email}).then(function(result)
+				{
+					This.updateUsersAndMessages()
+					This.setState({message:"", token:result.data.token})
+					sessionStorage.setItem('token', result.data.token);
+					const chat = document.getElementById("messages");
+					chat.scrollTop = chat.scrollHeight;
+				})
+			})	
+		}
+
+		else
+		{
+			API.postMessage(data).then(function(result)
+			{
+				API.updateToken({email:This.state.email}).then(function(result)
+				{
+					This.updateUsersAndMessages()
+					This.setState({message:"", token:result.data.token})
+					sessionStorage.setItem('token', result.data.token);
+					const chat = document.getElementById("messages");
+					chat.scrollTop = chat.scrollHeight;
+				})
 			})
-		})
+		}
 	}
 
 	render()
@@ -193,7 +214,9 @@ class Chatroom extends Component
 			<div className="container">
 				<div className="row text-center">
 					<div className="col-md-12">
-						<h2>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h2>
+						{this.state.room === "happy" ? <h2>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h2>
+						: this.state.room === "sad" ? <h2>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h2>
+						: <h2>One on One</h2>}
 					</div>
 				</div>
 

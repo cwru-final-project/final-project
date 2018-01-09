@@ -44,7 +44,7 @@ class Header extends Component
 
 			<div className="bgimg-4">
 			</div>
-		/</div>
+		</div>
 			
 		);
 	}

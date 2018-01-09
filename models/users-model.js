@@ -18,6 +18,14 @@ const user =
 		});
 	},
 
+	findOneUser: function(field, value, cb)
+	{
+		orm.findOne("users", field, value, function(result)
+		{
+			cb(result)
+		})
+	},
+
 	login: function(value, cb)
 	{
 		orm.findOneByEmail("users", value, function(result)
@@ -58,9 +66,9 @@ const user =
 		})
 	},
 
-	findWaiters: function(cb)
+	findWaiters: function(intent, cb)
 	{
-		orm.findAllWhere("users", "waiting", 1, function(result)
+		orm.findAllWhereTwo("users", "waiting", 1, intent, 1, function(result)
 		{
 			cb(result)
 		})
@@ -69,6 +77,14 @@ const user =
 	updateField: function(setField, setValue, whereField, whereValue, cb)
 	{
 		orm.updateField("users", setField, setValue, whereField, whereValue, function(result)
+		{
+			cb(result)
+		})
+	},
+
+	createTable: function(name, cb)
+	{
+		orm.createTable(name, function(result)
 		{
 			cb(result)
 		})

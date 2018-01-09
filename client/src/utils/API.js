@@ -37,6 +37,11 @@ export default {
 		return axios.post(`/message`, data)
 	},
 
+	postRoll: function(data)
+	{
+		return axios.post(`message/roll`, data)
+	},
+
 	findAllMessages: function(data)
 	{
 		return axios.get(`/findallmessages/${data}`);
@@ -49,6 +54,6 @@ export default {
 
 	findwaiters: function(data)
 	{
-		return axios.get(`/findwaiters/${data}`)
+		return axios.get(`/findwaiters/${data.id}/${data.intent}`)
 	}
 };

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Appcontainer from './components/Appcontainer'
-import Header from './components/Header'
 import Login from './components/Login'
 import Pickroom from './components/Pickroom'
 import Chatroom from './components/chatRoom'
@@ -19,7 +18,6 @@ class App extends Component
   render() {
     return (
       <div>
-
         <Router>
           <Appcontainer>
             <Switch>
