@@ -167,7 +167,16 @@ class Chatroom extends Component
 			{
 				for (let i=0; i<result.data.length; i++)
 				{
-					result.data[i].time = Math.abs((Date.now()/(60*1000).toFixed(0) - parseInt((new Date(result.data[i].time).getTime() / (60*1000)).toFixed(0))).toFixed(0))
+					const time = Math.abs((Date.now()/(60*1000).toFixed(0) - parseInt((new Date(result.data[i].time).getTime() / (60*1000)).toFixed(0))).toFixed(0))
+					if (time === 0 || time === 1)
+					{
+						result.data[i].time = "just now";
+					}
+
+					else
+					{
+						result.data[i].time = time + " minutes ago";
+					}
 				}
 
 				This.setState({messages:result.data});
