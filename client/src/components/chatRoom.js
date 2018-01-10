@@ -10,6 +10,11 @@ const styles =
 		"height":"400px",
 		"overflow":"scroll"
 	},
+
+	chatName:
+	{
+		"color": "black"
+	}
 }
 
 class Chatroom extends Component 
@@ -285,10 +290,10 @@ class Chatroom extends Component
 			<div className="container">
 				<div className="row text-center">
 					<div className="col-md-12">
-						{this.state.room === "happy" ? <h2>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h2>
-						: this.state.room === "sad" ? <h2>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h2>
-						: this.state.users.length === 1 ? <h2>Waiting for partner...</h2>
-						: <h2>One on One</h2>}
+						{this.state.room === "happy" ? <h2 style={styles.chatName}>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h2>
+						: this.state.room === "sad" ? <h2 style={styles.chatName}>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h2>
+						: this.state.users.length === 1 ? <h2 style={styles.chatName}>Waiting for partner...</h2>
+						: <h2 style={styles.chatName}>One on One</h2>}
 					</div>
 				</div>
 
