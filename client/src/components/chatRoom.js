@@ -100,8 +100,8 @@ class Chatroom extends Component
 								xhttp.send(JSON.stringify(data));
 							}				
 
-							This.tokenCheck()
-						});
+						//This.tokenCheck()
+						})
 					}
 				});
 			}

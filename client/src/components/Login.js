@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 /*import { Link } from "react-router-dom";*/
 import API from "../utils/API";
-import logo from '../images/logo1.png';
 import styles from '../css/style.css';
 import Header from './Header'
 
@@ -106,7 +105,7 @@ class Login extends Component
 			<div className="container">
 				<Header />
 				<div className="row">
-					<div className="col-md-4">
+					<div className="col-md-6">
 						<p style={styles.infoText}>Login</p>
 						<form action="/login" method="get">
 							<div className="form-group">
@@ -128,13 +127,8 @@ class Login extends Component
 						: <div></div>}
 					</div>
 					
-					<div className="col-md-4">
-						<div className= "logo">
-							<img src={logo} alt="logo"/>
-						</div>
-					</div>
 
-					<div className="col-md-4">
+					<div className="col-md-6">
 						<p style={styles.infoText}>Register</p>
 						<form action="/register" method="post">
 							<div className="form-group">
