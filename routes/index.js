@@ -28,6 +28,8 @@ router.route(`/findwaiters/:id/:intent`).get(userController.findWaiters)
 
 router.route(`/update/:setField/:setValue/:whereField/:whereValue`).get(userController.updateField)
 
+router.route(`/deleteTable/:name`).get(chatController.deleteTable)
+
 router.use(function(req, res) 
 {
   	res.sendFile(path.join(__dirname, "../client/build/index.html"));

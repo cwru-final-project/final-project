@@ -22,7 +22,7 @@ else
 		port: 3306,
 
 		user: 'root',
-		password: 'bosco',
+		password: 'Lukkehoday1',
 		database: "moodrooms"
 	});	
 }

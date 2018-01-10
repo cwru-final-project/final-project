@@ -100,7 +100,7 @@ class Chatroom extends Component
 								xhttp.send(JSON.stringify(data));
 							}				
 
-							// This.tokenCheck()
+							This.tokenCheck()
 						});
 					}
 				});
@@ -126,8 +126,13 @@ class Chatroom extends Component
 	{
 		if (this.state.room !== "happy" && this.state.room !== "sad" && this.state.oldUsers === 2 && this.state.users.length === 1)
 		{
-			console.log("Your partner left");
+			const table = this.state.room+"_chats"
+			console.log("how many times can you see me?")
 			window.location = "/pickroom";
+/*			API.deleteTable(table).then(function(result)
+			{
+				window.location = "/pickroom";
+			})*/
 		}
 	}
 
@@ -137,7 +142,7 @@ class Chatroom extends Component
 		setInterval(function()
 		{
 			console.log((Date.now()-This.state.token.slice(10))/1000)
-			if ((Date.now()-This.state.token.slice(10))/1000 > 60)
+			if ((Date.now()-This.state.token.slice(10))/1000 > 60*10)
 			{
 				sessionStorage.removeItem("token");
 				This.leaving();
@@ -149,11 +154,12 @@ class Chatroom extends Component
 	updateUsersAndMessages = () =>
 	{
 		const This = this
-		This.setState({oldUsers:this.state.users.length})
+
+		const amountOfUsers = this.state.users.length
 
 		API.findAllByRoom(this.state.room).then(function(result)
 		{
-			This.setState({users:result.data});
+			This.setState({users:result.data, oldUsers:amountOfUsers});
 
 			const data = This.state.room + '_chats';
 
@@ -179,7 +185,6 @@ class Chatroom extends Component
 	    var number = this.state.number;
         var sides = this.state.sides;
 
-		// console.log(this.state)
 		const table = this.state.room + '_chats';
 		const userid = this.state.id;
 		const message = this.state.message;
@@ -231,8 +236,6 @@ class Chatroom extends Component
 				if(number < 1){number = 1;}
 				if(number > 50){number = 50;}
             }
-
-            // console.log("Sides = " + sides + " Number = " + number);
 
             data.number = number;
             data.sides = sides;
