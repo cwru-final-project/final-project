@@ -103,7 +103,11 @@ class Pickroom extends Component
 			
 			<div className="container-fluid">
 			<div className="pickroom">
-			<div className="pickroom-content">
+				<div className="row text-center">
+					<br></br>
+					<br></br>
+					<br></br>
+				</div>
 				
 				<div className="row text-center">
 					<div className="col-md-1">
@@ -113,6 +117,7 @@ class Pickroom extends Component
 					<div className="happy-img col-md-3">
 					</div>
 					<div className="white-space col-md-3 ">
+						<p id="button-desc">Please click on the button below to enter the happy room. This is an open forum to share and listen to good news and accomplishments with like-minded chatter.</p>
 						<button type="button" className=" happy btn btn-primary" onClick={this.updateRoom} name="happy">HAPPY</button>
 					</div>
 					<div className="col-md-2">
@@ -127,7 +132,7 @@ class Pickroom extends Component
 						<p id="small-text">How are you feeling?</p>
 					</div>
 					<div className="white-space col-md-3">
-						<p id="button-desc">Parallax scrolling is a web site trend where the background content is moved at a different</p>
+						<p id="button-desc">Please click on the button below to enter the sad room. This is an open forum to seek and give guidance for chatters who are struggling.</p>
 						<button type="button" className="sad btn btn-primary" onClick={this.updateRoom} name="sad">SAD</button>
 					</div>
 					<div className="sad-img col-md-3">
@@ -144,14 +149,14 @@ class Pickroom extends Component
 					<div className="private-img col-md-3">
 					</div>
 					<div className="white-space col-md-3">
+						<p id="button-desc">Please click on the coresponding button below to be either a speaker or listener in this one on one chatroom.</p>
 						<button type="button" className="listen btn btn-primary" onClick={this.listen}>LISTEN</button>
-						<p>or</p>
+						<span>or</span>
 						<button type="button" className="speak btn btn-primary" onClick={this.speak}>SPEAK</button>
 					</div>
 					<div className="col-md-2">
 					</div>
 				</div>
-			</div>
 			</div>
 			</div>
 		)
