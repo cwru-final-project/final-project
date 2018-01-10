@@ -39,3 +39,11 @@ message VARCHAR(255) not null,
 time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 primary key(id)
 );
+
+INSERT INTO users (name, email, password, age) VALUES
+(
+	"Mind Over Mood", 
+	"moverm@moverm.com",
+    "hello",
+    "100"
+);

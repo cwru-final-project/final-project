@@ -11,6 +11,15 @@ const orm =
 		})
 	},
 
+	findOne: function(table, field, value, cb)
+	{
+		connection.query(`SELECT * FROM ${table} WHERE ${field} = ?`, [value], function(err, result)
+		{
+			if(err){throw err;}
+			cb(result)
+		})
+	},
+
 	findAllByRoom: function(table, room, cb)
 	{
 		connection.query(`SELECT id, name, age FROM ${table} WHERE current_room=?`, [room], function(err, result)
@@ -136,6 +145,15 @@ const orm =
 				if(err){throw err;}
 				cb(result)
 			})
+	},
+
+	deleteTable: function(name, cb)
+	{
+		connection.query(`DROP TABLE IF EXISTS ${name}`, function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
 	}
 }
 

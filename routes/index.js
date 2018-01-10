@@ -22,9 +22,13 @@ router.route(`/findallmessages/:table`).get(chatController.findAllMessages)
 
 router.route(`/message`).post(chatController.postMessage)
 
+router.route(`/message/roll`).post(chatController.postRoll)
+
 router.route(`/findwaiters/:id/:intent`).get(userController.findWaiters)
 
 router.route(`/update/:setField/:setValue/:whereField/:whereValue`).get(userController.updateField)
+
+router.route(`/deleteTable/:name`).get(chatController.deleteTable)
 
 router.use(function(req, res) 
 {
@@ -32,8 +36,9 @@ router.use(function(req, res)
 });
 
 
-//Deletes all messages that are more than an hour old.  Checks once a minute.  
-setInterval(function()
+//Deletes all messages that are more than an hour old.  Checks once a minute.
+
+const deleteCheck = function()
 {
 	connection.query(`SELECT DISTINCT current_room FROM users`, function(err, result)
 	{
@@ -63,6 +68,12 @@ setInterval(function()
 			})
 		}
 	})
+}
+
+deleteCheck()
+setInterval(function()
+{
+	deleteCheck()
 }, 60*1000);
 
 module.exports = router;

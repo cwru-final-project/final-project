@@ -24,6 +24,14 @@ const chat =
 		{
 			cb(result)
 		})
+	},
+
+	deleteTable: function(name, cb)
+	{
+		orm.deleteTable(name, function(result)
+		{
+			cb(result)
+		})
 	}
 }
 

@@ -18,6 +18,14 @@ const user =
 		});
 	},
 
+	findOneUser: function(field, value, cb)
+	{
+		orm.findOne("users", field, value, function(result)
+		{
+			cb(result)
+		})
+	},
+
 	login: function(value, cb)
 	{
 		orm.findOneByEmail("users", value, function(result)

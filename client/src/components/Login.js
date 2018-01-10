@@ -15,6 +15,8 @@ class Login extends Component
 		"registerEmail": "",
 		"registerPassword": "",
 		"registerAge": "",
+		"loginError": "",
+		"registerError": ""
 	}
 
 	updateField = event =>
@@ -24,10 +26,10 @@ class Login extends Component
 
 	login = event =>
 	{
+		const This = this;
 		event.preventDefault()
 		console.log(this.state.loginEmail)
 		console.log(this.state.loginPassword)
-		document.getElementById("hit").style.display = 'block';
 
 		const data = 
 		{
@@ -47,16 +49,19 @@ class Login extends Component
 
 			else if (result.data === "No email")
 			{
+				This.setState({loginError: "We don't have this email in our system"})
 				console.log(result.data)
 			}
 
-			else if (result.data === "Wrong password")
+			else if (result.data === "Wrong password!")
 			{
+				This.setState({loginError: "Wrong password"})
 				console.log(result.data)
 			}
 
 			else
 			{
+				This.setState({loginError: "There was an error, please try again"})
 				console.log(result.data)
 			}
 		})
@@ -65,28 +70,32 @@ class Login extends Component
 	register = event =>
 	{
 		event.preventDefault()
-
-		const data = 
+		const This = this;
+		if (this.state.registerName !== "Mind Over Mood")
 		{
-			"name": this.state.registerName,
-			"email": this.state.registerEmail,
-			"password": this.state.registerPassword,
-			"age": this.state.registerAge
+			const data = 
+			{
+				"name": this.state.registerName,
+				"email": this.state.registerEmail,
+				"password": this.state.registerPassword,
+				"age": this.state.registerAge
+			}
+
+			API.register(data).then(function(result)
+			{
+				if (result.data === "Not new")
+				{
+					This.setState({registerError: "We already have this email in our system"})
+					console.log("User already exists")
+				}
+
+				else
+				{
+					sessionStorage.setItem('token', result.data.token);
+					window.location='/pickroom'
+				}
+			})
 		}
-
-		API.register(data).then(function(result)
-		{
-			if (result.data === "Not new")
-			{
-				console.log("User already exists")
-			}
-
-			else
-			{
-				sessionStorage.setItem('token', result.data.token);
-				window.location='/pickroom'
-			}
-		})
 	}
 
 	render()
@@ -111,9 +120,11 @@ class Login extends Component
 							<button type="submit" className="btn btn-primary" onClick={this.login}>Login</button>
 						</form>
 
-						<div className="alert alert-success" role="alert" id="hit" style={styles.hit}>
-					  		You hit the button!
-						</div>
+						{this.state.loginError !== "" ? 
+						<div className="alert alert-danger" role="alert" id="hit" style={styles.hit}>
+					  		{this.state.loginError}
+						</div> 
+						: <div></div>}
 					</div>
 					
 
@@ -139,6 +150,12 @@ class Login extends Component
 
 							<button type="submit" className="btn btn-primary" onClick={this.register}>Register</button>
 						</form>
+
+						{this.state.registerError !== "" ? 
+						<div className="alert alert-danger" role="alert" id="hit" style={styles.hit}>
+					  		{this.state.registerError}
+						</div> 
+						: <div></div>}
 					</div>
 				</div>
 			</div>
