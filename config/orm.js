@@ -145,6 +145,15 @@ const orm =
 				if(err){throw err;}
 				cb(result)
 			})
+	},
+
+	deleteTable: function(name, cb)
+	{
+		connection.query(`DROP TABLE IF EXISTS ${name}`, function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
 	}
 }
 

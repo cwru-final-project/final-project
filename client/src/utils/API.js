@@ -55,5 +55,10 @@ export default {
 	findwaiters: function(data)
 	{
 		return axios.get(`/findwaiters/${data.id}/${data.intent}`)
+	},
+
+	deleteTable: function(data)
+	{
+		return axios.get(`/deleteTable/${data}`)
 	}
 };
