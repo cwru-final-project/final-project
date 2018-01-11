@@ -101,7 +101,7 @@ class Chatroom extends Component
 								xhttp.send(JSON.stringify(data));
 							}				
 
-						This.tokenCheck()
+						//This.tokenCheck()
 						})
 					}
 				});
@@ -188,6 +188,7 @@ class Chatroom extends Component
 	updateField = event =>
 	{
 		this.setState({message: event.target.value});
+		console.log(event.target.type)
 	}
 
 	sendMessage = event =>
@@ -299,7 +300,7 @@ class Chatroom extends Component
 					<div className="col-md-1">
 					</div>
 					<div className="col-md-2">
-						<div className="card">
+						<div className="card whoshere">
 							<div className="title card-header">
 								Who's here?
 							</div>
