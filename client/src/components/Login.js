@@ -117,7 +117,7 @@ class Login extends Component
 								<input type="password" className="form-control" id="loginPassword" value={this.state.loginPassword} onChange={this.updateField} required/>
 							</div>
 
-							<button type="submit" className="log btn btn-primary" onClick={this.login}>Login</button>
+							<button type="submit" className="log btn btn-primary center" onClick={this.login}>Login</button>
 						</form>
 
 						{this.state.loginError !== "" ? 

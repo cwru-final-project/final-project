@@ -11,8 +11,10 @@ class Header extends Component
 		return (
 		<div className = "container-fluid">	
 			<div className="bgimg-1">
-				<div className="caption">
-					<span className="border">MIND OVER MOOD</span>
+				<div className="row">
+					<div className="caption">
+						<span className="border">MIND OVER MOOD</span>
+					</div>
 				</div>
 
 				<div className="arrow">
@@ -21,7 +23,7 @@ class Header extends Component
 			
 			<div className = "whatWeOffer">
 				<h3>What we Offer</h3>
-				<p>Have you ever had news, good or bad, that you wanted to tell but could not find the right person? Mind over Mood was a page designed for people that love to share. It is unique in that it is not geared towards a specific mood. Just got that big promotion at work? Share it in the happy room. Going through a tough time and need some advice on how to get through it? Talk about it in the sad room.  Are you going through something a little more personal and would prefer to talk to someone one on one? There’s a room for that too. If you are someone who prefers to listen rather than share, then the speaker listener chat was designed for you. All users are anonymous, so no personal information will be released in this judgement free zone.</p>
+				<p>Have you ever had news, good or bad, that you wanted to tell but could not find the right person? Mind over Mood is a page designed for people that love to share. It is unique in that it is not geared towards a specific mood. Just got that big promotion at work? Share it in the happy room. Going through a tough time and need some advice on how to get through it? Talk about it in the sad room.  Are you going through something a little more personal and would prefer to talk to someone one on one? There’s a room for that too. If you are someone who prefers to listen rather than share, then the speaker listener chat was designed for you. All users are anonymous, so no personal information will be released in this judgement free zone.</p>
 			</div>
 			
 			<div className="bgimg-2">

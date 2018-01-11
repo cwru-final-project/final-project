@@ -76,11 +76,12 @@ body {
   padding:18px 50px 18px 50px;
   font-size: 35px;
   letter-spacing: 15px;
+  font-size: 2.2em;
   }
 
 h2{
   color: white;
-  font-size:55px;
+  font-size:40px;
 }
 
 h3 {
@@ -90,8 +91,9 @@ h3 {
   color: black;
 }
 #small-text{
-  font-size:30px;
+  font-size:25px;
   color:white;
+  margin-bottom:0px;
 
 }
 
@@ -140,15 +142,11 @@ h3 {
   letter-spacing: 10px;
   border: 2px #fff solid;
   box-shadow: 10px 10px 5px grey;
+  margin-bottom: 20px;
   }
-  .listen{
-    float:right;
-  }
-  .speak{
-    float:left;
-  }
+
   .log, .reg{
-    margin-left:150px;
+
   }
 
   .send{
@@ -163,9 +161,14 @@ h3 {
   }
   .btn:hover{
   background-image: linear-gradient(to right, red, yellow, green, blue);
-  border-style:none;
+  border-style:1px solid red;
   opacity:.6;
   color:black;
+  }
+
+  .whoshere
+  {
+    margin-bottom:20px;
   }
 
   .pickroom, .chatroom {
@@ -174,11 +177,11 @@ h3 {
    rgba(0, 0, 0, .75)),
    url('../images/background.jpg')no-repeat center center fixed;
   background-size:cover;
-  height:900px;
+  width:100vw;
+  height:120vh;
   }
 .white-space{
   background-color:white;
-  height:250px;
  
 }
 .happy-img{
@@ -225,12 +228,10 @@ h3 {
   text-transform: uppercase;
 }
 .login{
-  padding-left:80px;
   padding-top:120px;
 }
 .register{
   padding-top:40px;
-  padding-left:80px;
   margin-bottom:20px;
 }
 

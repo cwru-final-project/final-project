@@ -105,8 +105,6 @@ class Pickroom extends Component
 			<div className="pickroom">
 				<div className="row text-center">
 					<br></br>
-					<br></br>
-					<br></br>
 				</div>
 				
 				<div className="row text-center">
@@ -117,7 +115,7 @@ class Pickroom extends Component
 					<div className="happy-img col-md-3">
 					</div>
 					<div className="white-space col-md-3 ">
-						<p id="button-desc">Please click on the button below to enter the happy room. This is an open forum to share and listen to good news and accomplishments with like-minded chatter.</p>
+						<p id="button-desc">Please click on the button below to enter the happy room. This is an open forum to share and listen to good news and accomplishments with like-minded chatters.</p>
 						<button type="button" className=" happy btn btn-primary" onClick={this.updateRoom} name="happy">HAPPY</button>
 					</div>
 					<div className="col-md-2">
@@ -149,14 +147,24 @@ class Pickroom extends Component
 					<div className="private-img col-md-3">
 					</div>
 					<div className="white-space col-md-3">
-						<p id="button-desc">Please click on the coresponding button below to be either a speaker or listener in this one on one chatroom.</p>
-						<button type="button" className="listen btn btn-primary" onClick={this.listen}>LISTEN</button>
-						<span>or</span>
-						<button type="button" className="speak btn btn-primary" onClick={this.speak}>SPEAK</button>
+						<p id="button-desc">Please click on the corresponding button below to be either a speaker or listener in this one on one chatroom.</p>
+						<div className = "row">
+							<div className = "col-md-12">
+								<button type="button" className="listen btn btn-primary" onClick={this.listen}>LISTEN</button>
+							</div>
+							<div className = "col-md-12">
+								or
+							</div>
+							<div className = "col-md-12">
+								<button type="button" className="speak btn btn-primary" onClick={this.speak}>SPEAK</button>
+							</div>
+
+						</div>
 					</div>
 					<div className="col-md-2">
 					</div>
 				</div>
+				<br></br>
 			</div>
 			</div>
 		)
