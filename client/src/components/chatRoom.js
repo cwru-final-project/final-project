@@ -128,12 +128,11 @@ class Chatroom extends Component
 		if (this.state.room !== "happy" && this.state.room !== "sad" && this.state.oldUsers === 2 && this.state.users.length === 1)
 		{
 			const table = this.state.room+"_chats"
-			console.log("how many times can you see me?")
-			window.location = "/pickroom";
-/*			API.deleteTable(table).then(function(result)
+			alert("Your parter has left the room, try again!")
+			API.deleteTable(table).then(function(result)
 			{
 				window.location = "/pickroom";
-			})*/
+			})
 		}
 	}
 
@@ -160,27 +159,26 @@ class Chatroom extends Component
 
 		API.findAllByRoom(this.state.room).then(function(result)
 		{
-			This.setState({users:result.data, oldUsers:amountOfUsers});
 
 			const data = This.state.room + '_chats';
 
-			API.findAllMessages(data).then(function(result)
+			API.findAllMessages(data).then(function(result2)
 			{
-				for (let i=0; i<result.data.length; i++)
+				for (let i=0; i<result2.data.length; i++)
 				{
-					const time = Math.abs((Date.now()/(60*1000).toFixed(0) - parseInt((new Date(result.data[i].time).getTime() / (60*1000)).toFixed(0))).toFixed(0))
+					const time = Math.abs((Date.now()/(60*1000).toFixed(0) - parseInt((new Date(result2.data[i].time).getTime() / (60*1000)).toFixed(0))).toFixed(0))
 					if (time === 0 || time === 1)
 					{
-						result.data[i].time = "just now";
+						result2.data[i].time = "just now";
 					}
 
 					else
 					{
-						result.data[i].time = time + " minutes ago";
+						result2.data[i].time = time + " minutes ago";
 					}
 				}
 
-				This.setState({messages:result.data});
+				This.setState({messages:result2.data, users:result.data, oldUsers:amountOfUsers});
 			});
 		});
 	}
