@@ -7,7 +7,7 @@ const styles =
 {
 	chatbox:
 	{
-		"height":"400px",
+		"height":"600px",
 		"overflow":"scroll"
 	}
 
@@ -159,7 +159,6 @@ class Chatroom extends Component
 
 		API.findAllByRoom(this.state.room).then(function(result)
 		{
-
 			const data = This.state.room + '_chats';
 
 			API.findAllMessages(data).then(function(result2)
@@ -264,17 +263,20 @@ class Chatroom extends Component
 
 		else
 		{
-			API.postMessage(data).then(function(result)
+			if (this.state.message !== "")
 			{
-				API.updateToken({email:This.state.email}).then(function(result)
+				API.postMessage(data).then(function(result)
 				{
-					This.updateUsersAndMessages();
-					This.setState({message:"", token:result.data.token});
-					sessionStorage.setItem('token', result.data.token);
-					const chat = document.getElementById("messages");
-					chat.scrollTop = chat.scrollHeight;
+					API.updateToken({email:This.state.email}).then(function(result)
+					{
+						This.updateUsersAndMessages();
+						This.setState({message:"", token:result.data.token});
+						sessionStorage.setItem('token', result.data.token);
+						const chat = document.getElementById("messages");
+						chat.scrollTop = chat.scrollHeight;
+					});
 				});
-			});
+			}
 		}
 	}
 
@@ -286,8 +288,6 @@ class Chatroom extends Component
 			<div className="chatroom">
 				<div className="row text-center">
 					<div className="col-md-12">
-						<br></br>
-						<br></br>
 						<br></br>
 						<br></br>
 						<br></br>
@@ -303,15 +303,15 @@ class Chatroom extends Component
 								Who's here?
 							</div>
 							<ul className="list-group list-group-flush">
-								{this.state.users.map((user, i) => <User key={i} name={user.name} />)}	
+								{this.state.users.map((user, i) => <User key={i} name={user.name} userid={user.id}/>)}	
 							</ul>
 						</div>
 					</div>
 					<div className="col-md-8">
 						<div className="card">
 							<div className="title card-header">
-								{this.state.room === "happy" ? <h4>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h4>
-								: this.state.room === "sad" ? <h4>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h4>
+								{this.state.room === "happy" ? <h4>What are you {this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} about, {this.state.name}?</h4>
+								: this.state.room === "sad" ? <h4>What are you {this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} about, {this.state.name}?</h4>
 								: this.state.users.length === 1 ? <h4>Waiting for partner...</h4>
 								: <h2>One on One</h2>}
 							</div>

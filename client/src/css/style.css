@@ -177,7 +177,6 @@ h3 {
    rgba(0, 0, 0, .75)),
    url('../images/background.jpg')no-repeat center center fixed;
   background-size:cover;
-  width:100vw;
   height:120vh;
   }
 .white-space{

@@ -14,6 +14,7 @@ const styles =
 		"color": "black",
 		"fontWeight":"normal",
 		"fontSize": "10px",
+		"marginLeft": "10px"
 	},
 
 	message:
@@ -26,7 +27,8 @@ const styles =
 const Message = props =>
 (
 	<div className="alert alert-dark" role="alert">
-		<div style={styles.name}>{props.name}: <span style={styles.message}>{props.message}</span><span className="float-right" style={styles.date}>{props.time}</span></div>
+		<div style={styles.name}>{props.name}: <span></span><span style={styles.message}>{props.message}</span><span className="float-right" style={styles.date}>{props.time}</span></div>
+		<i className="far fa-thumbs-up fa-1x float-right"></i>
 	</div>
 )
 
