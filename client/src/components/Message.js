@@ -5,21 +5,28 @@ const styles =
 	name:
 	{
 		"fontWeight":"bold",
-		"marginBottom":"0px"
+		"fontSize": "15px",
+		color: "black"
 	},
 
 	date:
 	{
-		"fontSize": "10px"
+		"color": "black",
+		"fontWeight":"normal",
+		"fontSize": "10px",
+	},
+
+	message:
+	{
+		"color": "black",
+		"fontWeight":"normal",
+		"fontSize": "15px",
 	}
 }
 const Message = props =>
 (
-	<div className="alert alert-secondary" role="alert">
-	  <h4 className="alert-heading">{props.name}</h4>
-	  <p className="mb-0" style={styles.date}>{props.time}</p>
-	  <hr></hr>
-	  <p>{props.message}</p>
+	<div className="alert alert-dark" role="alert">
+		<div style={styles.name}>{props.name}: <span style={styles.message}>{props.message}</span><span className="float-right" style={styles.date}>{props.time}</span></div>
 	</div>
 )
 

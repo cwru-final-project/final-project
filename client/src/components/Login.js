@@ -106,7 +106,7 @@ class Login extends Component
 				<Header />
 				<div className="row">
 					<div className="col-md-6">
-						<p style={styles.infoText}>Login</p>
+					<div className= "login">
 						<form action="/login" method="get">
 							<div className="form-group">
 								<label htmlFor="loginEmail">Email address</label>
@@ -117,7 +117,7 @@ class Login extends Component
 								<input type="password" className="form-control" id="loginPassword" value={this.state.loginPassword} onChange={this.updateField} required/>
 							</div>
 
-							<button type="submit" className="btn btn-primary" onClick={this.login}>Login</button>
+							<button type="submit" className="log btn btn-primary center" onClick={this.login}>Login</button>
 						</form>
 
 						{this.state.loginError !== "" ? 
@@ -126,10 +126,10 @@ class Login extends Component
 						</div> 
 						: <div></div>}
 					</div>
+					</div>
 					
-
 					<div className="col-md-6">
-						<p style={styles.infoText}>Register</p>
+					<div className="register">
 						<form action="/register" method="post">
 							<div className="form-group">
 								<label htmlFor="registerName">Name</label>
@@ -148,7 +148,7 @@ class Login extends Component
 								<input type="number" className="form-control" id="registerAge" value={this.state.registerAge} onChange={this.updateField} required/>
 							</div>
 
-							<button type="submit" className="btn btn-primary" onClick={this.register}>Register</button>
+							<button type="submit" className="reg btn btn-primary" onClick={this.register}>Register</button>
 						</form>
 
 						{this.state.registerError !== "" ? 
@@ -156,6 +156,7 @@ class Login extends Component
 					  		{this.state.registerError}
 						</div> 
 						: <div></div>}
+					</div>
 					</div>
 				</div>
 			</div>

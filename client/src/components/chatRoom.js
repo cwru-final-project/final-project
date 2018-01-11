@@ -9,12 +9,8 @@ const styles =
 	{
 		"height":"400px",
 		"overflow":"scroll"
-	},
-
-	chatName:
-	{
-		"color": "black"
 	}
+
 }
 
 class Chatroom extends Component 
@@ -132,12 +128,11 @@ class Chatroom extends Component
 		if (this.state.room !== "happy" && this.state.room !== "sad" && this.state.oldUsers === 2 && this.state.users.length === 1)
 		{
 			const table = this.state.room+"_chats"
-			console.log("how many times can you see me?")
-			window.location = "/pickroom";
-/*			API.deleteTable(table).then(function(result)
+			alert("Your parter has left the room, try again!")
+			API.deleteTable(table).then(function(result)
 			{
 				window.location = "/pickroom";
-			})*/
+			})
 		}
 	}
 
@@ -164,27 +159,26 @@ class Chatroom extends Component
 
 		API.findAllByRoom(this.state.room).then(function(result)
 		{
-			This.setState({users:result.data, oldUsers:amountOfUsers});
 
 			const data = This.state.room + '_chats';
 
-			API.findAllMessages(data).then(function(result)
+			API.findAllMessages(data).then(function(result2)
 			{
-				for (let i=0; i<result.data.length; i++)
+				for (let i=0; i<result2.data.length; i++)
 				{
-					const time = Math.abs((Date.now()/(60*1000).toFixed(0) - parseInt((new Date(result.data[i].time).getTime() / (60*1000)).toFixed(0))).toFixed(0))
+					const time = Math.abs((Date.now()/(60*1000).toFixed(0) - parseInt((new Date(result2.data[i].time).getTime() / (60*1000)).toFixed(0))).toFixed(0))
 					if (time === 0 || time === 1)
 					{
-						result.data[i].time = "just now";
+						result2.data[i].time = "just now";
 					}
 
 					else
 					{
-						result.data[i].time = time + " minutes ago";
+						result2.data[i].time = time + " minutes ago";
 					}
 				}
 
-				This.setState({messages:result.data});
+				This.setState({messages:result2.data, users:result.data, oldUsers:amountOfUsers});
 			});
 		});
 	}
@@ -192,6 +186,7 @@ class Chatroom extends Component
 	updateField = event =>
 	{
 		this.setState({message: event.target.value});
+		console.log(event.target.type)
 	}
 
 	sendMessage = event =>
@@ -287,21 +282,24 @@ class Chatroom extends Component
 	{
 		return (
 
-			<div className="container">
+			<div className="container-fluid">
+			<div className="chatroom">
 				<div className="row text-center">
 					<div className="col-md-12">
-						{this.state.room === "happy" ? <h2 style={styles.chatName}>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h2>
-						: this.state.room === "sad" ? <h2 style={styles.chatName}>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h2>
-						: this.state.users.length === 1 ? <h2 style={styles.chatName}>Waiting for partner...</h2>
-						: <h2 style={styles.chatName}>One on One</h2>}
+						<br></br>
+						<br></br>
+						<br></br>
+						<br></br>
+						<br></br>
 					</div>
 				</div>
 
 				<div className="row text-center">
-					<div className="col-md-3">
-
-						<div className="card">
-							<div className="card-header">
+					<div className="col-md-1">
+					</div>
+					<div className="col-md-2">
+						<div className="card whoshere">
+							<div className="title card-header">
 								Who's here?
 							</div>
 							<ul className="list-group list-group-flush">
@@ -309,10 +307,13 @@ class Chatroom extends Component
 							</ul>
 						</div>
 					</div>
-					<div className="col-md-9">
+					<div className="col-md-8">
 						<div className="card">
-							<div className="card-header">
-								Chat
+							<div className="title card-header">
+								{this.state.room === "happy" ? <h4>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h4>
+								: this.state.room === "sad" ? <h4>{this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} Room</h4>
+								: this.state.users.length === 1 ? <h4>Waiting for partner...</h4>
+								: <h2>One on One</h2>}
 							</div>
 							<div className="card-body text-left" style={styles.chatbox} id="messages">
 								{this.state.messages.map((message, i) => <Message key={i} name={message.name} message={message.message} time={message.time}/>)}
@@ -321,13 +322,16 @@ class Chatroom extends Component
 								<div className="input-group">
 									<input type="text" className="form-control" placeholder="Chat away!" value={this.state.message} onChange={this.updateField} />
 									<span className="input-group-btn">
-										<button className="btn btn-success" type="button" onClick={this.sendMessage}>Send!</button>
+										<button className="send btn btn-success" type="button" onClick={this.sendMessage}>SEND</button>
 									</span>
 								</div>
 							</div>
 						</div>
 					</div>
+					<div className="col-md-1">
+					</div>
 				</div>
+			</div>
 			</div>
 		)
 	}

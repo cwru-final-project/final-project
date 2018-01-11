@@ -1,5 +1,6 @@
 body {
   height: 100%;
+  width:100%;
   margin: 0;
   font: 400 15px/1.8 "Lato", sans-serif;
   color: #777;
@@ -9,6 +10,7 @@ body {
   padding-left:0;
   padding-right:0;
   margin:0;
+  
 }
 
 .bgimg-1 {
@@ -40,16 +42,18 @@ body {
   background: linear-gradient(
    rgba(0, 0, 0, .7), 
    rgba(0, 0, 0, .7)),
-   url('../images/frustration.jpg')no-repeat center center fixed;
+   url('../images/frustration.jpg') no-repeat center center fixed;
   min-height: 400px;
 }
 
 .bgimg-1, .bgimg-2, .bgimg-3, .bgimg-4 {
-  position: relative;
   background-size:cover;
+  position: relative;
+  margin-left: -50vw;
+  margin-right:-6vw;
   }
 
-.about-us, .resources, .why, .feelings{
+.whatWeOffer, .help, .why, .feelings{
   color:black;
   background-color:white;
   text-align:center;
@@ -58,24 +62,10 @@ body {
   opacity:.6;
 }
 
-img{
-  width:200px;
-  height:200px;
-}
-
-.logo {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  
-}
-
-
 .caption {
   position: absolute;
-  left: 50px;
-  top: 15%;
-  width: 100%;
+  top: 20%;
+  margin-left:51%;
   text-align: center;
   color: #000;
 }
@@ -83,13 +73,15 @@ img{
 .caption span.border {
   background-color: #111;
   color: #fff;
-  padding: 18px;
+  padding:18px 50px 18px 50px;
   font-size: 35px;
   letter-spacing: 15px;
+  font-size: 2.2em;
   }
+
 h2{
   color: white;
-  font-size:55px;
+  font-size:40px;
 }
 
 h3 {
@@ -99,21 +91,24 @@ h3 {
   color: black;
 }
 #small-text{
-  font-size:30px;
+  font-size:25px;
   color:white;
+  margin-bottom:0px;
 
 }
 
 .arrow,
 .arrow:before {
   position: absolute;
-  left: 52%;
+  left: 31%;
+  right:30%;
 }
 
 .arrow {
   width: 40px;
   height: 40px;
-  top: 60%;
+  top: 40%;
+  left:67%;
   margin: -20px 0 0 -20px;
   -webkit-transform: rotate(45deg);
   border-left: none;
@@ -127,7 +122,8 @@ h3 {
   content: '';
   width: 20px;
   height: 20px;
-  top: 50%;
+  top: 49%;
+  left:50%;
   margin: -10px 0 0 -10px;
   border-left: none;
   border-top: none;
@@ -138,33 +134,54 @@ h3 {
   animation-name: arrow;
   }
 
-  .happy, .sad, .listen, .speak {
+  .happy, .sad, .listen, .speak, .log, .reg {
   background-color: #111;
   color: #fff;
   padding: 12px;
-  font-size: 20px;
+  font-size: 13px;
   letter-spacing: 10px;
   border: 2px #fff solid;
   box-shadow: 10px 10px 5px grey;
-  }
-  .listen{
-    float:right;
-  }
-  .speak{
-    float:left;
+  margin-bottom: 20px;
   }
 
-  .pickroom {
+  .log, .reg{
+
+  }
+
+  .send{
+    background-color: #111;
+    color: #fff;
+    padding: 12px;
+    font-size: 15px;
+    border: 2px #fff solid;
+    box-shadow: 10px 10px 5px grey;
+    letter-spacing: 5px;
+    
+  }
+  .btn:hover{
+  background-image: linear-gradient(to right, red, yellow, green, blue);
+  border-style:1px solid red;
+  opacity:.6;
+  color:black;
+  }
+
+  .whoshere
+  {
+    margin-bottom:20px;
+  }
+
+  .pickroom, .chatroom {
   background: linear-gradient(
    rgba(0, 0, 0, .75), 
    rgba(0, 0, 0, .75)),
    url('../images/background.jpg')no-repeat center center fixed;
   background-size:cover;
-  height:900px
+  width:100vw;
+  height:120vh;
   }
 .white-space{
   background-color:white;
-  height:250px;
  
 }
 .happy-img{
@@ -193,3 +210,36 @@ h3 {
   
 }
 
+#button-desc{
+  color:black;
+  background-color:white;
+  text-align:center;
+  padding:15px 20px;
+  text-align:justify;
+  opacity:.6;
+}
+.card-header{
+  background-color: #111;
+  color: #fff;
+  padding: 10px;
+  font-size: 13px "Lato", sans-serif;
+  letter-spacing: 5px;
+  border: 1px #fff solid;
+  text-transform: uppercase;
+}
+.login{
+  padding-top:120px;
+}
+.register{
+  padding-top:40px;
+  margin-bottom:20px;
+}
+
+a{
+  color:black;
+}
+
+a:hover{
+  background-image:linear-gradient(to right, red, yellow, green, blue);
+  color:black;
+}

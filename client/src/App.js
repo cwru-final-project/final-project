@@ -4,7 +4,6 @@ import Appcontainer from './components/Appcontainer'
 import Login from './components/Login'
 import Pickroom from './components/Pickroom'
 import Chatroom from './components/chatRoom'
-import Test from './components/Test'
 import NoMatch from './components/NoMatch'
 
 class App extends Component 
@@ -24,7 +23,6 @@ class App extends Component
               <Route exact path="/" component={Login} />
               <Route exact path="/pickroom" component={Pickroom} />
               <Route exact path="/chatroom" component={Chatroom} />
-              <Route exact path="/test" component={Test} />
               <Route component={NoMatch} />
             </Switch>
           </Appcontainer>
