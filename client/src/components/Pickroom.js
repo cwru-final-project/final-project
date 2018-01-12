@@ -104,7 +104,7 @@ class Pickroom extends Component
 
 				<div className="pickroom">
 				<div className="container">
-
+					<br></br>
 
 					
 					<div className="row text-center">
@@ -176,6 +176,8 @@ class Pickroom extends Component
 						</div>
 					</div>
 				</div>
+				<br></br>
+				<br></br>
 			</div>
 		)
 	}
