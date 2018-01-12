@@ -26,6 +26,7 @@ class User extends Component
 	{
 		const This = this;
 		const token = sessionStorage.getItem('token');
+
 		const data =
 		{
 			token: token
@@ -37,13 +38,41 @@ class User extends Component
 			{
 				API.getLikeIds(result.data[0].id).then(function(result3)
 				{
-					This.setState({users:result2.data, id: result.data[0].id});
+					for (let i=0; i<result3.data.length; i++)
+					{
+						if (This.state.id === result3.data[i].likerid)
+						{
+							for (let j=0; j<result2.data.length; j++)
+							{
+								if (result3.data[i].likeyid === result2.data[j].id)
+								{
+									//console.log(This.state.id+" has already liked "+result2.data[j].id)
+									result2.data[j].liked = true;
+								}
+							}
+						}
+					}
+
+					console.log(result2.data)
+
+					if (result.data[0].current_room === "happy" || result.data[0].current_room === "sad")
+					{
+						This.setState({users:[]})
+						This.setState({users:result2.data, id: result.data[0].id});						
+					}
+
+					else if (result2.data.length > 1)
+					{
+						console.log("CAN YOU SEEEEEEE ME!?!?!?!")
+						This.setState({users:[]})
+						This.setState({users:result2.data, id: result.data[0].id});							
+					}
 				});
 			});	
 		});
 	}
 
-	componentDidMount = () =>
+	componentWillMount = () =>
 	{
 		const This = this;
 
@@ -83,7 +112,8 @@ class User extends Component
 				<ul className="list-group list-group-flush">
 					{this.state.users.map((user, i) => this.state.id === user.id
 						? <li key ={i} className="list-group-item" style={styles.me}><span className="float-left">(you)</span>{user.name}  <span className="float-right">+{user.likes}</span></li>
-						: <li key ={i} className="list-group-item"><div id={user.id} onClick={this.likeUser}><i id={user.id} className="far fa-heart fa-2x float-left" style={styles.heart} onClick={this.likeUser}></i></div>{user.name}  <span className="float-right">+{user.likes}</span></li>)}
+						: user.liked ? <li key ={i} className="list-group-item"><i className="fas fa-heart fa-2x float-left" style={styles.heart}></i>{user.name} <span className="float-right">+{user.likes}</span></li>
+						: <li key ={i} className="list-group-item"><div id={user.id} onClick={this.likeUser}><i id={user.id} className="far fa-heart fa-2x float-left" style={styles.heart}></i></div>{user.name} <span className="float-right">+{user.likes}</span></li>)}
 				</ul>
 			</div>
 		)

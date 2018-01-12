@@ -47,6 +47,9 @@ class Chatroom extends Component
 		API.findOneByToken(data).then(function(result)
 		{
 
+			console.log("RESUKT OF TRYING TO FIND ROOM!")
+			console.log(result)
+
 			if (result.data.constructor === String)
 			{
 				alert("Please log back in");
@@ -55,6 +58,7 @@ class Chatroom extends Component
 
 			else if (result.data[0].current_room === "")
 			{
+				console.log("TRIGGER!")
 				window.location = "/pickroom";
 			}
 
