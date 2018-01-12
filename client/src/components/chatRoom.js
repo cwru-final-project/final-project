@@ -284,54 +284,54 @@ class Chatroom extends Component
 	{
 		return (
 
-			<div className="container-fluid">
 			<div className="chatroom">
-				<div className="row text-center">
-					<div className="col-md-12">
-						<br></br>
-						<br></br>
-						<br></br>
-					</div>
-				</div>
-
-				<div className="row text-center">
-					<div className="col-md-1">
-					</div>
-					<div className="col-md-2">
-						<div className="card whoshere">
-							<div className="title card-header">
-								Who's here?
-							</div>
-							<ul className="list-group list-group-flush">
-								{this.state.users.map((user, i) => <User key={i} name={user.name} userid={user.id}/>)}	
-							</ul>
+				<div className="container">
+					<div className="row text-center">
+						<div className="col-md-12">
+							<br></br>
+							<br></br>
+							<br></br>
 						</div>
 					</div>
-					<div className="col-md-8">
-						<div className="card">
-							<div className="title card-header">
-								{this.state.room === "happy" ? <h4>What are you {this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} about, {this.state.name}?</h4>
-								: this.state.room === "sad" ? <h4>What are you {this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} about, {this.state.name}?</h4>
-								: this.state.users.length === 1 ? <h4>Waiting for partner...</h4>
-								: <h2>One on One</h2>}
+
+					<div className="row text-center">
+						<div className="col-md-1">
+						</div>
+						<div className="col-md-2">
+							<div className="card whoshere">
+								<div className="title card-header">
+									Who's here?
+								</div>
+								<ul className="list-group list-group-flush">
+									{this.state.users.map((user, i) => <User key={i} name={user.name} userid={user.id}/>)}	
+								</ul>
 							</div>
-							<div className="card-body text-left" style={styles.chatbox} id="messages">
-								{this.state.messages.map((message, i) => <Message key={i} name={message.name} message={message.message} time={message.time}/>)}
-							</div>
-							<div className="card-footer text-muted">
-								<div className="input-group">
-									<input type="text" className="form-control" placeholder="Chat away!" value={this.state.message} onChange={this.updateField} />
-									<span className="input-group-btn">
-										<button className="send btn btn-success" type="button" onClick={this.sendMessage}>SEND</button>
-									</span>
+						</div>
+						<div className="col-md-8">
+							<div className="card">
+								<div className="title card-header">
+									{this.state.room === "happy" ? <h4>What are you {this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} about, {this.state.name}?</h4>
+									: this.state.room === "sad" ? <h4>What are you {this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} about, {this.state.name}?</h4>
+									: this.state.users.length === 1 ? <h4>Waiting for partner...</h4>
+									: <h2>One on One</h2>}
+								</div>
+								<div className="card-body text-left" style={styles.chatbox} id="messages">
+									{this.state.messages.map((message, i) => <Message key={i} name={message.name} message={message.message} time={message.time}/>)}
+								</div>
+								<div className="card-footer text-muted">
+									<div className="input-group">
+										<input type="text" className="form-control" placeholder="Chat away!" value={this.state.message} onChange={this.updateField} />
+										<span className="input-group-btn">
+											<button className="send btn btn-success" type="button" onClick={this.sendMessage}>SEND</button>
+										</span>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div className="col-md-1">
+						<div className="col-md-1">
+						</div>
 					</div>
 				</div>
-			</div>
 			</div>
 		)
 	}
