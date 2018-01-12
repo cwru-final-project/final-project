@@ -10,16 +10,22 @@ class Header extends Component
 	{
 		return (
 		<div className = "container-fluid">	
-			<div className="bgimg-1">
-				<div className="row">
-					<div className="caption">
-						<span className="border">MIND OVER MOOD</span>
-					</div>
-				</div>
 
-				<div className="arrow">
-				</div>
-			</div>
+						<div className="bgimg-1">
+						<div className="container">
+							<div className="row">
+								<div className="col-md-12">
+									<div className="caption">
+										<span className="border">MIND OVER MOOD</span>
+									</div>
+									<div className="arrow">
+									</div>
+								</div>
+							</div>
+							</div>
+						</div>
+
+
 			
 			<div className = "whatWeOffer">
 				<h3>What we Offer</h3>

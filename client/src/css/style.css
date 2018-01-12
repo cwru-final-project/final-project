@@ -9,11 +9,13 @@ body {
 .container-fluid {
   padding-left:0;
   padding-right:0;
-  margin:0;
+  width:100%;
   
 }
 
+
 .bgimg-1 {
+  position: relative;
   background: linear-gradient(
    rgba(0, 0, 0, .7), 
    rgba(0, 0, 0, .7)),
@@ -48,9 +50,6 @@ body {
 
 .bgimg-1, .bgimg-2, .bgimg-3, .bgimg-4 {
   background-size:cover;
-  position: relative;
-  margin-left: -50vw;
-  margin-right:-6vw;
   }
 
 .whatWeOffer, .help, .why, .feelings{
@@ -63,14 +62,16 @@ body {
 }
 
 .caption {
-  position: absolute;
-  top: 20%;
-  margin-left:51%;
-  text-align: center;
   color: #000;
 }
 
 .caption span.border {
+  text-align: center;
+  top:140px;
+  position: absolute;
+  left:50%;
+  width: 70%;
+  transform: translateX(-50%);
   background-color: #111;
   color: #fff;
   padding:18px 50px 18px 50px;
@@ -99,17 +100,14 @@ h3 {
 
 .arrow,
 .arrow:before {
-  position: absolute;
-  left: 31%;
-  right:30%;
 }
 
 .arrow {
+  position: absolute;
   width: 40px;
   height: 40px;
-  top: 40%;
-  left:67%;
-  margin: -20px 0 0 -20px;
+  top:280px;
+  left:50%;
   -webkit-transform: rotate(45deg);
   border-left: none;
   border-top: none;
@@ -119,19 +117,16 @@ h3 {
 
   
 .arrow:before {
-  content: '';
-  width: 20px;
-  height: 20px;
-  top: 49%;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top:220px;
   left:50%;
-  margin: -10px 0 0 -10px;
+  -webkit-transform: rotate(45deg);
   border-left: none;
   border-top: none;
-  border-right: 1px #fff solid;
-  border-bottom: 1px #fff solid;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  animation-name: arrow;
+  border-right: 2px #fff solid;
+  border-bottom: 2px #fff solid;
   }
 
   .happy, .sad, .listen, .speak, .log, .reg {
@@ -241,4 +236,22 @@ a{
 a:hover{
   background-image:linear-gradient(to right, red, yellow, green, blue);
   color:black;
+}
+
+@media screen and (max-width: 1000px) {
+.arrow {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top:320px;
+}
+}
+
+@media screen and (max-width: 770px) {
+.arrow {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top:360px;
+}
 }

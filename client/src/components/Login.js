@@ -101,9 +101,10 @@ class Login extends Component
 	render()
 	{
 		return (
-
+			<div>
+			<Header />
 			<div className="container">
-				<Header />
+	
 				<div className="row">
 					<div className="col-md-6">
 					<div className= "login">
@@ -159,6 +160,7 @@ class Login extends Component
 					</div>
 					</div>
 				</div>
+			</div>
 			</div>
 		)
 	}
