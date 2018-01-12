@@ -101,71 +101,81 @@ class Pickroom extends Component
 	{
 		return (
 			
-			<div className="container-fluid">
-			<div className="pickroom">
-				<div className="row text-center">
-					<br></br>
-				</div>
-				
-				<div className="row text-center">
-					<div className="col-md-1">
-					</div>
-					<div className="col-md-3">
-					</div>
-					<div className="happy-img col-md-3">
-					</div>
-					<div className="white-space col-md-3 ">
-						<p id="button-desc">Please click on the button below to enter the happy room. This is an open forum to share and listen to good news and accomplishments with like-minded chatters.</p>
-						<button type="button" className=" happy btn btn-primary" onClick={this.updateRoom} name="happy">HAPPY</button>
-					</div>
-					<div className="col-md-2">
-					</div>
-				</div>
 
-				<div className="row text-center">
-					<div className="col-md-1">
-					</div>
-					<div className="col-md-3">
-						<h2>Welcome {this.state.name}</h2>
-						<p id="small-text">How are you feeling?</p>
-					</div>
-					<div className="white-space col-md-3">
-						<p id="button-desc">Please click on the button below to enter the sad room. This is an open forum to seek and give guidance for chatters who are struggling.</p>
-						<button type="button" className="sad btn btn-primary" onClick={this.updateRoom} name="sad">SAD</button>
-					</div>
-					<div className="sad-img col-md-3">
-					</div>
-					<div className="col-md-2">
-					</div>
-				</div>
+				<div className="pickroom">
+				<div className="container">
 
-				<div className="row text-center">
-					<div className="col-md-1">
-					</div>
-					<div className="col-md-3">
-					</div>
-					<div className="private-img col-md-3">
-					</div>
-					<div className="white-space col-md-3">
-						<p id="button-desc">Please click on the corresponding button below to be either a speaker or listener in this one on one chatroom.</p>
-						<div className = "row">
-							<div className = "col-md-12">
-								<button type="button" className="listen btn btn-primary" onClick={this.listen}>LISTEN</button>
-							</div>
-							<div className = "col-md-12">
-								or
-							</div>
-							<div className = "col-md-12">
-								<button type="button" className="speak btn btn-primary" onClick={this.speak}>SPEAK</button>
-							</div>
 
+					
+					<div className="row text-center">
+						<div className="col-md-1">
+						</div>
+						<div className="col-md-3">
+						</div>
+						<div className="col-md-3 happy-img ">
+						</div>
+						<div className="white-space col-md-3 ">
+							<p id="button-desc">Please click on the button below to enter the happy room. This is an open forum to share and listen to good news and accomplishments with like-minded chatters.</p>
+							<button type="button" className=" happy btn btn-primary" onClick={this.updateRoom} name="happy">HAPPY</button>
+						</div>
+						<div className="col-md-2">
 						</div>
 					</div>
-					<div className="col-md-2">
+
+					<div className="row text-center">
+						<div className="col-md-1">
+						</div>
+						<div className="col-md-3">
+							<h2>Welcome {this.state.name}</h2>
+							<p id="small-text">How are you feeling?</p>
+						</div>
+						<div className="white-space col-md-3">
+							<p id="button-desc">Please click on the button below to enter the sad room. This is an open forum to seek and give guidance for chatters who are struggling.</p>
+							<button type="button" className="sad btn btn-primary" onClick={this.updateRoom} name="sad">SAD</button>
+						</div>
+						<div className="sad-img col-md-3">
+						</div>
+						<div className="col-md-2">
+						</div>
+					</div>
+
+					<div className="row text-center">
+
+						<div className="col-md-1">
+						</div>
+
+						<div className="col-md-3">
+						</div>
+
+						<div className="private-img col-md-3">
+						</div>
+
+						<div className="white-space col-md-3">
+							<p id="button-desc">Please click on the corresponding button below to be either a speaker or listener in this one on one chatroom.</p>
+							<div className = "row">
+
+								<div className = "col-md-12">
+									<button type="button" className="listen btn btn-primary" onClick={this.listen}>LISTEN</button>
+								</div>
+							</div>
+
+							<div className = "row">
+								<div className = "col-md-12">
+									or
+								</div>
+							</div>
+
+							<div className = "row">
+								<div className = "col-md-12">
+									<button type="button" className="speak btn btn-primary" onClick={this.speak}>SPEAK</button>
+								</div>
+							</div>
+						</div>
+
+						<div className="col-md-2">
+						</div>
 					</div>
 				</div>
-				<br></br>
-			</div>
 			</div>
 		)
 	}
