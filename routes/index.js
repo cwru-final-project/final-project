@@ -2,6 +2,7 @@ const path = require("path");
 const router = require("express").Router();
 const userController = require("../controllers/userController")
 const chatController = require("../controllers/chatController")
+const likesController = require("../controllers/likesController")
 const connection = require('../config/connection.js');
 
 router.route("/findall").get(userController.findAll)
@@ -29,6 +30,12 @@ router.route(`/findwaiters/:id/:intent`).get(userController.findWaiters)
 router.route(`/update/:setField/:setValue/:whereField/:whereValue`).get(userController.updateField)
 
 router.route(`/deleteTable/:name`).get(chatController.deleteTable)
+
+router.route(`/updateLikes/:id`).get(userController.updateLikes)
+
+router.route(`/updateLikesLookUp`).post(likesController.updateLikesLookUp)
+
+router.route(`/getLikeIds/:id`).get(likesController.getLikeIds)
 
 router.use(function(req, res) 
 {

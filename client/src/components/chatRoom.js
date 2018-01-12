@@ -185,7 +185,14 @@ class Chatroom extends Component
 	updateField = event =>
 	{
 		this.setState({message: event.target.value});
-		console.log(event.target.type)
+	}
+
+	pressEnter = event =>
+	{
+		if (event.key === "Enter")
+		{
+			this.sendMessage()
+		}
 	}
 
 	sendMessage = event =>
@@ -289,8 +296,6 @@ class Chatroom extends Component
 					<div className="row text-center">
 						<div className="col-md-12">
 							<br></br>
-							<br></br>
-							<br></br>
 						</div>
 					</div>
 
@@ -298,14 +303,7 @@ class Chatroom extends Component
 						<div className="col-md-1">
 						</div>
 						<div className="col-md-2">
-							<div className="card whoshere">
-								<div className="title card-header">
-									Who's here?
-								</div>
-								<ul className="list-group list-group-flush">
-									{this.state.users.map((user, i) => <User key={i} name={user.name} userid={user.id}/>)}	
-								</ul>
-							</div>
+							<User />
 						</div>
 						<div className="col-md-8">
 							<div className="card">
@@ -320,7 +318,7 @@ class Chatroom extends Component
 								</div>
 								<div className="card-footer text-muted">
 									<div className="input-group">
-										<input type="text" className="form-control" placeholder="Chat away!" value={this.state.message} onChange={this.updateField} />
+										<input type="text" className="form-control" placeholder="Chat away!" value={this.state.message} onChange={this.updateField} onKeyPress={this.pressEnter}/>
 										<span className="input-group-btn">
 											<button className="send btn btn-success" type="button" onClick={this.sendMessage}>SEND</button>
 										</span>
@@ -332,6 +330,8 @@ class Chatroom extends Component
 						</div>
 					</div>
 				</div>
+				<br></br>
+				<br></br>
 			</div>
 		)
 	}

@@ -212,5 +212,13 @@ module.exports =
 				})
 			}
 		})
+	},
+
+	updateLikes: function(req, res)
+	{
+		usersModel.updateLikes(req.params.id, function(result)
+		{
+			res.end()
+		})
 	}
 }
