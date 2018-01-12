@@ -37,13 +37,6 @@ class User extends Component
 			{
 				API.getLikeIds(result.data[0].id).then(function(result3)
 				{
-					console.log(result2.data)
-					console.log(result3.data)
-
-					for (let i=0; i<result2.data.length; i++)
-					{
-						console.log(result2.data[i])
-					}
 					This.setState({users:result2.data, id: result.data[0].id});
 				});
 			});	

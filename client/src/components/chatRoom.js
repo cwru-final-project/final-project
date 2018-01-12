@@ -259,11 +259,10 @@ class Chatroom extends Component
 			{
 				API.updateToken({email:This.state.email}).then(function(result)
 				{
-					This.updateUsersAndMessages();
-					This.setState({message:"", token:result.data.token});
-					sessionStorage.setItem('token', result.data.token);
-					const chat = document.getElementById("messages");
-					chat.scrollTop = chat.scrollHeight;
+						This.updateUsersAndMessages();
+						This.setState({message:""});
+						const chat = document.getElementById("messages");
+						chat.scrollTop = chat.scrollHeight;
 				});
 			});	
 		}
@@ -274,14 +273,10 @@ class Chatroom extends Component
 			{
 				API.postMessage(data).then(function(result)
 				{
-					API.updateToken({email:This.state.email}).then(function(result)
-					{
 						This.updateUsersAndMessages();
-						This.setState({message:"", token:result.data.token});
-						sessionStorage.setItem('token', result.data.token);
+						This.setState({message:""});
 						const chat = document.getElementById("messages");
 						chat.scrollTop = chat.scrollHeight;
-					});
 				});
 			}
 		}
