@@ -60,5 +60,20 @@ export default {
 	deleteTable: function(data)
 	{
 		return axios.get(`/deleteTable/${data}`)
+	},
+
+	updateLikes: function(data)
+	{
+		return axios.get(`/updateLikes/${data}`)
+	},
+
+	updateLikesLookUp: function(data)
+	{
+		return axios.post(`/updateLikesLookUp`, data)
+	},
+
+	getLikeIds: function(data)
+	{
+		return axios.get(`/getLikeIds/${data}`)
 	}
 };

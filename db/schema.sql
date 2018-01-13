@@ -15,6 +15,7 @@ current_room VARCHAR(255),
 listening bit default 0,
 speaking bit default 0,
 waiting bit default 0,
+likes INT(50) default 0,
 primary key(id)
 );
 
@@ -40,10 +41,9 @@ time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 primary key(id)
 );
 
-INSERT INTO users (name, email, password, age) VALUES
-(
-	"Mind Over Mood", 
-	"moverm@moverm.com",
-    "hello",
-    "100"
+CREATE TABLE likeslookup(
+id INT(50) auto_increment not null,
+likerid INT(50),
+likeyid INT(50),
+primary key(id)
 );

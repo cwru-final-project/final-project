@@ -88,6 +88,14 @@ const user =
 		{
 			cb(result)
 		})
+	},
+
+	updateLikes: function(id, cb)
+	{
+		orm.updateLikes(id, function(result)
+		{
+			cb(result)
+		})
 	}
 }
 

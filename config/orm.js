@@ -22,7 +22,7 @@ const orm =
 
 	findAllByRoom: function(table, room, cb)
 	{
-		connection.query(`SELECT id, name, age FROM ${table} WHERE current_room=?`, [room], function(err, result)
+		connection.query(`SELECT id, name, age, likes FROM ${table} WHERE current_room=?`, [room], function(err, result)
 		{
 			if(err){throw err;}
 			cb(result);
@@ -150,6 +150,33 @@ const orm =
 	deleteTable: function(name, cb)
 	{
 		connection.query(`DROP TABLE IF EXISTS ${name}`, function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
+	},
+
+	updateLikes: function(id, cb)
+	{
+		connection.query(`UPDATE users SET likes = likes + 1 WHERE id = ?;`, [id], function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
+	},
+
+	updateLikesLookUp: function(likerid, likeyid, cb)
+	{
+		connection.query(`INSERT INTO likeslookup (likerid, likeyid) VALUES (?, ?);`, [likerid, likeyid], function(err, result)
+		{
+			if(err){throw err}
+			cb(result)
+		})
+	},
+
+	getLikeIds: function(id, cb)
+	{
+		connection.query(`SELECT * FROM likeslookup WHERE likerid = ?`, [id], function(err, result)
 		{
 			if(err){throw err}
 			cb(result)
