@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import API from "../utils/API";
-import User from "./User";
+//import User from "./User";
 import Message from "./Message";
 
 const styles =
@@ -9,6 +9,16 @@ const styles =
 	{
 		"height":"600px",
 		"overflow":"scroll"
+	},
+
+	heart:
+	{
+		"color": "red"
+	},
+
+	me:
+	{
+		"backgroundColor": "#b4e3ff"
 	}
 
 }
@@ -28,27 +38,21 @@ class Chatroom extends Component
 		messages:[],
 		oldUsers: 0,
 		number: 2,
-		sides: 6
+		sides: 6,
+		freeze: false
 	}
 
 	componentWillMount = () =>
 	{
-		let allGood = false;
+		const This = this;
 		const token = sessionStorage.getItem('token');
-		this.setState({token: token});
-
 		const data =
 		{
 			token: token
 		}
 
-		const This = this;
-
 		API.findOneByToken(data).then(function(result)
 		{
-
-			console.log("RESUKT OF TRYING TO FIND ROOM!")
-			console.log(result)
 
 			if (result.data.constructor === String)
 			{
@@ -58,33 +62,49 @@ class Chatroom extends Component
 
 			else if (result.data[0].current_room === "")
 			{
-				console.log("TRIGGER!")
 				window.location = "/pickroom";
 			}
 
 			else
 			{
-				allGood = true;
-				This.setState({
+				This.setState(
+				{
 					id: result.data[0].id, 
 					name: result.data[0].name, 
 					email: result.data[0].email, 
 					age: result.data[0].age, 
 					token: result.data[0].token, 
-					room: result.data[0].current_room})
-			
+					room: result.data[0].current_room,
+					token: token
+				})
 
-				API.findAllByRoom(result.data[0].current_room).then(function(result)
+				API.findAllByRoom(result.data[0].current_room).then(function(result2)
 				{
-					if (allGood)
+					const data = This.state.room+'_chats';
+					const amountOfUsers = This.state.users.length
+					API.getLikeIds(This.state.id).then(function(result3)
 					{
-						This.setState({users:result.data});
-
-						const data = This.state.room+'_chats';
-
-						API.findAllMessages(data).then(function(result)
+						for (let i=0; i<result3.data.length; i++)
 						{
-							This.setState({messages:result.data});
+							if (This.state.id === result3.data[i].likerid)
+							{
+								for (let j=0; j<result.data.length; j++)
+								{
+									if (result3.data[i].likeyid === result.data[j].id)
+									{
+										//console.log(This.state.id+" has already liked "+result.data[j].id)
+										result.data[j].liked = true;
+									}
+								}
+							}
+						}
+
+						This.setState({messages:result2.data, users:result.data, oldUsers:amountOfUsers});
+
+						API.findAllMessages(data).then(function(result3)
+						{
+							This.setState({messages:result3.data});
+
 							setInterval(function()
 							{
 								This.updateUsersAndMessages();
@@ -107,7 +127,7 @@ class Chatroom extends Component
 
 						//This.tokenCheck()
 						})
-					}
+					});
 				});
 			}
 		});
@@ -181,7 +201,27 @@ class Chatroom extends Component
 					}
 				}
 
-				This.setState({messages:result2.data, users:result.data, oldUsers:amountOfUsers});
+				API.getLikeIds(This.state.id).then(function(result3)
+				{
+					for (let i=0; i<result3.data.length; i++)
+					{
+						if (This.state.id === result3.data[i].likerid)
+						{
+							for (let j=0; j<result.data.length; j++)
+							{
+								if (result3.data[i].likeyid === result.data[j].id)
+								{
+									//console.log(This.state.id+" has already liked "+result.data[j].id)
+									result.data[j].liked = true;
+								}
+							}
+						}
+					}
+
+					console.log(result.data)
+
+					This.setState({messages:result2.data, users:result.data, oldUsers:amountOfUsers});
+				});
 			});
 		});
 	}
@@ -263,7 +303,7 @@ class Chatroom extends Component
 			{
 				API.updateToken({email:This.state.email}).then(function(result)
 				{
-						This.updateUsersAndMessages();
+						//This.updateUsersAndMessages();
 						This.setState({message:""});
 						const chat = document.getElementById("messages");
 						chat.scrollTop = chat.scrollHeight;
@@ -277,12 +317,35 @@ class Chatroom extends Component
 			{
 				API.postMessage(data).then(function(result)
 				{
-						This.updateUsersAndMessages();
+						//This.updateUsersAndMessages();
 						This.setState({message:""});
 						const chat = document.getElementById("messages");
 						chat.scrollTop = chat.scrollHeight;
 				});
 			}
+		}
+	}
+
+	likeUser = event =>
+	{
+		if (!this.state.freeze)
+		{
+			this.setState({freeze: true})
+			const This = this;
+			const id = event.target.parentElement.id
+			API.updateLikes(id).then(function(result)
+			{
+				const data = 
+				{
+					likerid: This.state.id,
+					likeyid: id
+				}
+
+				API.updateLikesLookUp(data).then(function(result)
+				{
+					This.setState({freeze:false})
+				})
+			})
 		}
 	}
 
@@ -302,7 +365,26 @@ class Chatroom extends Component
 						<div className="col-md-1">
 						</div>
 						<div className="col-md-2">
-							<User />
+
+
+
+
+							<div className="card whoshere">
+								<div className="title card-header">
+									Who's here?
+								</div>
+								<ul className="list-group list-group-flush">
+									{this.state.users.map((user, i) => this.state.id === user.id
+										? <li key ={i} className="list-group-item" style={styles.me}><span className="float-left">(you)</span>{user.name}  <span className="float-right">+{user.likes}</span></li>
+										: user.liked ? <li key ={i} className="list-group-item"><i className="fas fa-heart fa-2x float-left" style={styles.heart}></i>{user.name} <span className="float-right">+{user.likes}</span></li>
+										: <li key ={i} className="list-group-item"><div id={user.id} onClick={this.likeUser}><i id={user.id} className="far fa-heart fa-2x float-left" style={styles.heart}></i></div>{user.name} <span className="float-right">+{user.likes}</span></li>)}
+								</ul>
+							</div>
+
+
+
+
+
 						</div>
 						<div className="col-md-8">
 							<div className="card">
