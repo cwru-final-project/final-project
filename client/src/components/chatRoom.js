@@ -39,8 +39,7 @@ class Chatroom extends Component
 		oldUsers: 0,
 		number: 2,
 		sides: 6,
-		intent: ""
-		sides: 6,
+		intent: "",
 		freeze: false
 	}
 
