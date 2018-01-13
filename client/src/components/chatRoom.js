@@ -220,6 +220,7 @@ class Chatroom extends Component
 
 					console.log(result.data)
 
+					This.setState({users: []})
 					This.setState({messages:result2.data, users:result.data, oldUsers:amountOfUsers});
 				});
 			});
@@ -331,6 +332,7 @@ class Chatroom extends Component
 		if (!this.state.freeze)
 		{
 			this.setState({freeze: true})
+			console.log("FREEZE!")
 			const This = this;
 			const id = event.target.parentElement.id
 			API.updateLikes(id).then(function(result)
@@ -343,6 +345,7 @@ class Chatroom extends Component
 
 				API.updateLikesLookUp(data).then(function(result)
 				{
+					This.updateUsersAndMessages()
 					This.setState({freeze:false})
 				})
 			})
