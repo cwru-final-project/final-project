@@ -32,9 +32,8 @@ class Pickroom extends Component
 
 	listen = event =>
 	{
-		console.log("ready to listen")
-		console.log(this.state)
 		const This = this
+		sessionStorage.setItem('intent', 'listener');
 
 		API.updateField({whereField: "id", whereValue: this.state.id, setField: "listening", setValue: 1}).then(function(result)
 		{
@@ -50,6 +49,7 @@ class Pickroom extends Component
 	{
 		console.log("ready to speak")
 		const This = this
+		sessionStorage.setItem('intent', 'speaker');
 
 		API.updateField({whereField: "id", whereValue: this.state.id, setField: "speaking", setValue: 1}).then(function(result)
 		{
@@ -61,9 +61,16 @@ class Pickroom extends Component
 		})
 	}
 
+	loggout = () =>
+	{
+		sessionStorage.removeItem("token")
+		window.location = "/"
+	}
+
 	componentDidMount = () =>
 	{
 		const token = sessionStorage.getItem('token');
+		sessionStorage.removeItem('intent');
 
 		const data =
 		{
@@ -74,6 +81,11 @@ class Pickroom extends Component
 
 		API.findOneByToken(data).then(function(result)
 		{
+
+			if (result.data[0] === undefined)
+			{
+				window.location = "/"
+			}
 			This.setState(
 			{
 				id: result.data[0].id, 
@@ -145,6 +157,7 @@ class Pickroom extends Component
 						</div>
 
 						<div className="col-md-3">
+						<button className="send btn btn-success" type="button" onClick={this.loggout}>LOGOUT</button>
 						</div>
 
 						<div className="private-img col-md-3">

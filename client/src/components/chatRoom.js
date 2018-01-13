@@ -28,14 +28,16 @@ class Chatroom extends Component
 		messages:[],
 		oldUsers: 0,
 		number: 2,
-		sides: 6
+		sides: 6,
+		intent: ""
 	}
 
 	componentWillMount = () =>
 	{
 		let allGood = false;
 		const token = sessionStorage.getItem('token');
-		this.setState({token: token});
+		const intent = sessionStorage.getItem("intent")
+		this.setState({token: token, intent: intent});
 
 		const data =
 		{
@@ -51,6 +53,11 @@ class Chatroom extends Component
 			{
 				alert("Please log back in");
 				window.location = "/";
+			}
+
+			else if (result.data[0] === undefined)
+			{
+				window.location ="/"
 			}
 
 			else if (result.data[0].current_room === "")
@@ -196,6 +203,18 @@ class Chatroom extends Component
 		}
 	}
 
+	back = () =>
+	{
+		window.location = "/pickroom"
+	}
+
+	loggout = () =>
+	{
+		sessionStorage.removeItem('token');
+		sessionStorage.removeItem('intent');
+		window.location = "/"
+	}
+
 	sendMessage = event =>
 	{
 	    var number = this.state.number;
@@ -312,6 +331,10 @@ class Chatroom extends Component
 									{this.state.users.map((user, i) => <User key={i} name={user.name} userid={user.id}/>)}	
 								</ul>
 							</div>
+							<button className="send btn btn-success" type="button" onClick={this.back}>BACK</button>
+							<br></br>
+							<br></br>
+							<button className="send btn btn-success" type="button" onClick={this.loggout}>LOGOUT</button>
 						</div>
 						<div className="col-md-8">
 							<div className="card">
@@ -319,7 +342,7 @@ class Chatroom extends Component
 									{this.state.room === "happy" ? <h4>What are you {this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} about, {this.state.name}?</h4>
 									: this.state.room === "sad" ? <h4>What are you {this.state.room.charAt(0).toUpperCase()+this.state.room.slice(1)} about, {this.state.name}?</h4>
 									: this.state.users.length === 1 ? <h4>Waiting for partner...</h4>
-									: <h2>One on One</h2>}
+									: <h4>One on One - You are the {this.state.intent}</h4>}
 								</div>
 								<div className="card-body text-left" style={styles.chatbox} id="messages">
 									{this.state.messages.map((message, i) => <Message key={i} name={message.name} message={message.message} time={message.time}/>)}
